@@ -1,0 +1,84 @@
+Webarok is a web based remote control for Amarok.
+
+0. Prerequisites
+================
+
+You need to have installed
+1. Amarok 2 (tested with 2.1 and 2.2 beta)
+2. Python (tested with version 2.6)
+3. Python dbus bindings (package python-dbus on kubuntu)
+4. A webbrowser
+
+
+1. Installation
+===============
+
+Get the sourcecode and place it somewhere on the same computer as 
+Amarok is running
+
+
+2. Configuration
+================
+
+Webarok can show album art. For this it is neccessary to have access to 
+the folder on the filesystem, where Amarok stores the album art.
+Normally this folder is:
+/home/<<$USERNAME>>/.kde/share/apps/amarok/albumcovers/
+
+To restrict the access of webarok to this folder, open the file 
+Configuration/Configuration.py and edit the line
+
+self.artfolder = "/home/***PLEASE CHANGE THIS***/.kde/share/apps/amarok/albumcovers/"
+
+to match the folder with your setup
+
+
+3. Starting Webarok
+===================
+
+Make sure Amarok is already running. Open a terminal and enter:
+
+cd <<Path/to/Webarok>>
+python webarok.py
+
+If everything is OK, there should be some output like:
+
+init MyDbus class
+Starting webarok server
+
+
+4. Using Webarok
+================
+
+Open a browser and connect to the computer where webarok is running on port 8085. 
+If you started the browser on the same box as you installed webarok, then enter:
+
+http://localhost:8085/
+
+Now Webaroks interface should be visible and you are able to control Amarok via 
+this interface.  Have fun with it now :)
+
+
+5. Troubleshooting
+==================
+
+Visit http://sourceforge.net/projects/webarok/ and check forums or mailing lists
+
+
+6. CREDITS
+===========
+
+Libraries:
+Prototype Javascript library: http://www.prototypejs.org
+
+Icons:
+Dark Glass icon set: http://kde-look.org/content/show.php/DarkGlass_Reworked?content=67902
+
+Progressbar pictures:
+Relay: http://ecosmear.com/relay
+
+Python
+http://www.python.org
+
+Amarok
+http://amarok.kde.org
