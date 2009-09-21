@@ -1,0 +1,116 @@
+@CHARSET "UTF-8";
+
+body
+{
+	color: #DDD;
+	background-color: black;	
+}
+
+div.controls
+{
+	
+}	
+
+#main
+{
+	float: left;
+	width: 50%;	
+}
+
+#current_song
+{
+	width: 100%;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	float: left;
+}
+
+#current_song .song
+{
+	float: left;
+}
+
+#current_song .art
+{
+	float: left;
+	/*width: 160px;*/
+}
+
+#current_song .value
+{
+	font-weight: bold;
+	padding-left: 1em;
+}
+
+#current_song .description
+{
+	padding-left: 1em;
+}
+
+#playlist
+{
+	height: 100%;
+	width: 49%;
+	float: left;	
+	overflow: scroll;
+}
+
+#playlist table
+{
+	border-collapse: collapse;
+	
+}
+
+.playlist_item .current
+{
+	font-weight: bold;
+}
+
+.playlist_item .title
+{
+	padding-right: 1em;
+}
+
+.playlist_item .artist
+{
+	padding-right: 1em;
+}
+
+.playlist_item .album
+{
+	
+}
+
+.current_playlist_item
+{
+	background-color: #4188da;
+}
+
+#progress_wrapper
+{
+	padding-right: 1em;
+}
+
+#progress_background
+{
+	background-image: url(images/prog_blank.png); 
+	background-repeat: repeat-x;
+	width: 100%;	
+}
+
+#progress_foreground
+{
+	background-image: url(images/prog_filled.png); 
+	position: relative;
+	top: -20px;
+}
+
+.manual_refresh
+{
+	cursor: pointer;
+}
+
+.action
+{
+	cursor: pointer;
+}
