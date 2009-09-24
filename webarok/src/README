@@ -7,7 +7,7 @@ You need to have installed
 1. Amarok 2 (tested with 2.1 and 2.2 beta)
 2. Python (tested with version 2.6)
 3. Python dbus bindings (package python-dbus on kubuntu)
-4. A webbrowser
+4. A webbrowser (tested with firefox und khtml-part based browsers)
 
 
 1. Installation
@@ -59,6 +59,23 @@ Now Webaroks interface should be visible and you are able to control Amarok via
 this interface.  Have fun with it now :)
 
 
+4.1 Using themes
+================
+
+To load a specific theme, enter the URL
+http://<<$YOUR_IP>>:8085/index?theme=<<$THEME_NAME>>
+
+Up to now, 3 themes exist:
+http://<<$YOUR_IP>>:8085/index?theme=default
+--> the default theme
+
+http://<<$YOUR_IP>>:8085/index?theme=transparent
+--> same as default, but with transparent background, looks nice in webbrowser plasmoids
+
+http://<<$YOUR_IP>>:8085/index?theme=netbook
+--> uses a tab view to separate current song and controls, playlist and settings,
+--> uses also a smaller font to save screen estate
+
 5. Notes
 ========
 
@@ -81,6 +98,8 @@ Visit http://sourceforge.net/projects/webarok/ and check forums or mailing lists
 
 Libraries:
 Prototype Javascript library: http://www.prototypejs.org
+Livepipe Javascript widget library: http://livepipe.net
+Scriptaculous Javascript effects library: http://script.aculo.us
 
 Icons:
 Dark Glass icon set: http://kde-look.org/content/show.php/DarkGlass_Reworked?content=67902
@@ -88,8 +107,13 @@ Dark Glass icon set: http://kde-look.org/content/show.php/DarkGlass_Reworked?con
 Progressbar pictures:
 Relay: http://ecosmear.com/relay
 
-Python
+Python:
 http://www.python.org
 
-Amarok
+Amarok:
 http://amarok.kde.org
+
+And of course all the basic stuff:
+http://www.kde.org
+http:/qt.nokia.com
+http://www.linux.org
