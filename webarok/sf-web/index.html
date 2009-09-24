@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>webarok :: Amaraok webbased remote control</title>
+</head>
+<body>
+<pre>
+Webarok is a web based remote control for Amarok.
+
+Screenshots are available <a href="screenshots.html">here</a>
+
+Sourceforge.net project site:
+<a href="https://sourceforge.net/projects/webarok">https://sourceforge.net/projects/webarok/</a>
+
+0. Prerequisites
+================
+
+You need to have installed
+1. Amarok 2 (tested with 2.1 and 2.2 beta)
+2. Python (tested with version 2.6)
+3. Python dbus bindings (package python-dbus on kubuntu)
+4. A webbrowser
+
+
+1. Installation
+===============
+
+Get the sourcecode and place it somewhere on the same computer as 
+Amarok is running
+
+Download:
+<a href="https://sourceforge.net/projects/webarok/files/webarok_svn_R5.tar.bz2/download">
+https://sourceforge.net/projects/webarok/files/webarok_svn_R5.tar.bz2/download
+</a>
+
+SVN:
+svn co https://webarok.svn.sourceforge.net/svnroot/webarok webarok
+
+
+2. Configuration
+================
+
+Webarok can show album art. For this it is neccessary to have access to 
+the folder on the filesystem, where Amarok stores the album art.
+Normally this folder is:
+/home/&lt;&lt;$USERNAME&gt;&gt;/.kde/share/apps/amarok/albumcovers/
+
+To restrict the access of webarok to this folder, open the file 
+Configuration/Configuration.py and edit the line
+
+self.artfolder = "/home/***PLEASE CHANGE THIS***/.kde/share/apps/amarok/albumcovers/"
+
+to match the folder with your setup
+
+
+3. Starting Webarok
+===================
+
+Make sure Amarok is already running. Open a terminal and enter:
+
+cd &lt;&lt;Path/to/Webarok&gt;&gt;
+python webarok.py
+
+If everything is OK, there should be some output like:
+
+init MyDbus class
+Starting webarok server
+
+
+4. Using Webarok
+================
+
+Open a browser and connect to the computer where webarok is running on port 8085. 
+If you started the browser on the same box as you installed webarok, then enter:
+
+http://localhost:8085/
+
+Now Webaroks interface should be visible and you are able to control Amarok via 
+this interface.  Have fun with it now :)
+
+
+4.1 Using themes
+================
+
+To load a specific theme, enter the URL
+http://&lt;&lt;$YOUR_IP&gt;&gt;:8085/index?theme=&lt;&lt;$THEME_NAME&gt;&gt;
+
+Up to now, 3 themes exist:
+http://&lt;&lt;$YOUR_IP&gt;&gt;:8085/index?theme=default
+--&gt; the default theme
+
+http://&lt;&lt;$YOUR_IP&gt;&gt;:8085/index?theme=transparent
+--&gt; same as default, but with transparent background, looks nice in webbrowser plasmoids
+
+http://&lt;&lt;$YOUR_IP&gt;&gt;:8085/index?theme=netbook
+--&gt; uses a tab view to separate current song and controls, playlist and settings,
+--&gt; uses also a smaller font to save screen estate
+
+
+5. Troubleshooting
+==================
+
+Visit <a href="http://sourceforge.net/projects/webarok">http://sourceforge.net/projects/webarok/</a> and check forums or mailing lists
+
+
+6. CREDITS
+===========
+
+Libraries:
+Prototype Javascript library: <a href="http://www.prototypejs.org">http://www.prototypejs.org</a>
+Livepipe Javascript widget library: <a href="http://livepipe.net">http://livepipe.net</a>
+Scriptaculous Javascript effects library: <a href="http://script.aculo.us">http://script.aculo.us</a>
+
+Icons:
+Dark Glass icon set: <a href="http://kde-look.org/content/show.php/DarkGlass_Reworked?content=67902">http://kde-look.org/content/show.php/DarkGlass_Reworked?content=67902</a>
+
+Progressbar pictures:
+Relay: <a href="http://ecosmear.com/relay">http://ecosmear.com/relay</a>
+
+Python
+<a href="http://www.python.org">http://www.python.org</a>
+
+Amarok
+<a href="http://amarok.kde.org">http://amarok.kde.org</a>
+
+And of course all the basic stuff:
+<a href="http://www.kde.org">http://www.kde.org</a>
+<a href="http:/qt.nokia.com">http:/qt.nokia.com</a>
+<a href="http://www.linux.org">http://www.linux.org</a>
+
+And Sourceforge for hosting this project:
+<a href="http://www.sourceforge.net">http://www.sourceforge.net</a>
+</pre>
+</body>
+</html>
