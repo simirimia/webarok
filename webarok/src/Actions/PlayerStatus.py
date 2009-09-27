@@ -27,5 +27,7 @@ class PlayerStatus( PlayerActionBase ):
     def do( self, param ):
         status = PlayerActionBase.player.getStatus()
         encoder = JSONEncoder()
+        if status == False:
+            return False
         self.out = encoder.encode( status.getDictionary() )
-        return
+        return True

@@ -20,29 +20,34 @@ You should have received a copy of the GNU General Public License
 along with Webarok.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from Backend import Player
 from Actions import ActionBase
 
 from Theme_default import VolumeView
 
 class VolumeGet( ActionBase.PlayerActionBase ):
     def do( self, param ):
+        if ActionBase.PlayerActionBase.player.isInitialized()==  False:
+            return False
         v = ActionBase.PlayerActionBase.player.volumeGet()
 
         view = VolumeView.VolumeView( v )
         self.out = view.render()
-        return
+        return True
 
 class VolumeUp( ActionBase.PlayerActionBase ):
     def do( self, param ):
+        if ActionBase.PlayerActionBase.player.isInitialized():
+            return False
         v = ActionBase.PlayerActionBase.player.volumeGet()
         v.up()
         ActionBase.PlayerActionBase.player.volumeSet( v )
-        return
+        return True
 
 class VolumeDown( ActionBase.PlayerActionBase ):
     def do( self, param ):
+        if ActionBase.PlayerActionBase.player.isInitialized() == False:
+            return False
         v = ActionBase.PlayerActionBase.player.volumeGet()
         v.down()
         ActionBase.PlayerActionBase.player.volumeSet( v )
-        return
+        return True

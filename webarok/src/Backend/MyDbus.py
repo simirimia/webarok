@@ -26,11 +26,15 @@ class MyDbus( object ):
 
     def __init__( self, program ) :
         print "init MyDbus class"
+        self.initialized = False
         self.bus = dbus.SessionBus()
         self.program = program
         return
 
     def getObject( self, wanted ):
         return self.bus.get_object( self.program, wanted )
+    
+    def isInitialized( self ):
+        return self.initialized
 
 

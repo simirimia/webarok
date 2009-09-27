@@ -24,27 +24,36 @@ from Actions import ActionBase
 
 class Next( ActionBase.PlayerActionBase ):
     def do( self, param ):
+        if ActionBase.PlayerActionBase.player.isInitialized() == False:
+            return False
         ActionBase.PlayerActionBase.player.next()
-        return
+        return True
 
 class Pause( ActionBase.PlayerActionBase ):
     def do( self, param ):
+        if ActionBase.PlayerActionBase.player.isInitialized() == False:
+            return False
         ActionBase.PlayerActionBase.player.pause()
-        return
+        return True
 
 
 class Play( ActionBase.PlayerActionBase ):
     def do( self, param ):
+        if ActionBase.PlayerActionBase.player.isInitialized() == False:
+            return False
         ActionBase.PlayerActionBase.player.play()
-        return
+        return True
 
 class Previous( ActionBase.PlayerActionBase ):
     def do( self, param ):
+        if ActionBase.PlayerActionBase.player.isInitialized() == False:
+            return False
         ActionBase.PlayerActionBase.player.previous()
-        return
-
+        return True
 
 class Stop( ActionBase.PlayerActionBase ):
     def do( self, param ):
+        if ActionBase.PlayerActionBase.player.isInitialized() == False:
+            return False        
         ActionBase.PlayerActionBase.player.stop()
-        return
+        return True

@@ -25,45 +25,72 @@ import Backend
 from MediaObjects import Song
 from MediaObjects import Volume
 from MediaObjects.PlayerStatus import PlayerStatus
+from dbus.exceptions import DBusException
 
 class Player( MyDbus.MyDbus ):
 
     def __init__( self ):
         MyDbus.MyDbus.__init__( self, "org.kde.amarok" )
-        self.player = self.getObject( '/Player' )
+        self.init()
         return
+
+    def init(self):
+        if self.initialized == True:
+            return True
+        try:
+            self.player = self.getObject( '/Player' )
+            self.initialized = True
+        except  DBusException:
+            self.initialized = False
+        return self.initialized
 
     ## Player Controls
     def previous( self ):
+        if self.init() == False:
+            return False
         self.player.Prev( dbus_interface = 'org.freedesktop.MediaPlayer' )
-        return
+        return True
     def play( self ):
+        if self.init() == False:
+            return False
         self.player.Play( dbus_interface = 'org.freedesktop.MediaPlayer' )
-        return
+        return True
     def pause( self ):
+        if self.init() == False:
+            return False
         self.player.Pause( dbus_interface = 'org.freedesktop.MediaPlayer' )
-        return
+        return True
     def stop( self ):
+        if self.init() == False:
+            return False
         self.player.Stop( dbus_interface = 'org.freedesktop.MediaPlayer' )
-        return
+        return True
     def next( self ):
+        if self.init() == False:
+            return False
         self.player.Next( dbus_interface = 'org.freedesktop.MediaPlayer' )
-        return
+        return True
 
 
     ## Volume
     def volumeGet( self ):
+        if self.init() == False:
+            return False 
         dbus_volume = self.player.VolumeGet( dbus_interface = 'org.freedesktop.MediaPlayer' )
         volume = Volume.Volume()
         volume.initFromDbus( dbus_volume )
         return volume
     def volumeSet( self, v ):
+        if self.init() == False:
+            return False
         self.player.VolumeSet( v.volume, dbus_interface = 'org.freedesktop.MediaPlayer' )
-        return
+        return True
 
 
     ## Metadata
     def getCurrentSong( self ):
+        if self.init() == False:
+            return False
         # crrent metadata
         dbus_song = self.player.GetMetadata( dbus_interface = 'org.freedesktop.MediaPlayer' )
         song = Song.Song()
@@ -79,6 +106,8 @@ class Player( MyDbus.MyDbus ):
         return song
 
     def getStatus( self ):
+        if self.init() == False:
+            return False
         dbus_status = self.player.GetStatus( dbus_interface = 'org.freedesktop.MediaPlayer' )
         print "Status in Backend:"
         print dbus_status
