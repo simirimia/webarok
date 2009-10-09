@@ -15,7 +15,16 @@ function startRefreshingPlayerStatus() {
 		player_status_refresher.stop();
 		player_status_refresher = null;
 	} catch ( e ) {}
-	player_status_refresher = new PeriodicalExecuter( refreshPlayerStatus, 10 );
+	try	{
+		var rate = parseFloat($('refresh_rate_playerstatus').value);
+		if ( isNaN(rate) ) {
+			rate = 10;
+		}
+	}
+	catch( e )	{
+		rate = 10;
+	}
+	player_status_refresher = new PeriodicalExecuter( refreshPlayerStatus, rate );
 }
 function toggleRefreshPlayerStatus( value )  {
 	if (value)  startRefreshingPlayerStatus();
@@ -67,7 +76,18 @@ function startRefreshingCurrentSong() {
 		current_song_refresher.stop();
 		current_song_refresher = null;
 	} catch ( e ) {}
-	current_song_refresher = new PeriodicalExecuter( refreshCurrentSong, 5 );
+	
+	try	{
+		var rate = parseFloat($('refresh_rate_song').value);
+		if ( isNaN(rate) ) {
+			rate = 10;
+		}
+	}
+	catch( e )	{
+		rate = 10;
+	}
+	
+	current_song_refresher = new PeriodicalExecuter( refreshCurrentSong, rate );
 }
 function toggleRefreshCurrentSong( value ) {
 	if (value)	startRefreshingCurrentSong();
@@ -172,10 +192,21 @@ function refreshVolume() {
 }
 function startRefreshingVolume() {
 	try {
-		current_song_refresher.stop();
+		volume_refresher.stop();
 		volume_refresher = null;
 	} catch ( e ) {}
-	volume_refresher = new PeriodicalExecuter( refreshVolume, 60 );
+	
+	try	{
+		var rate = parseFloat($('refresh_rate_volume').value);
+		if ( isNaN(rate) ) {
+			rate = 60;
+		}
+	}
+	catch( e )	{
+		rate = 60;
+	}
+	
+	volume_refresher = new PeriodicalExecuter( refreshVolume, rate );
 }
 function toggleRefreshVolume( value ) {
 	if (value)	startRefreshingVolume();

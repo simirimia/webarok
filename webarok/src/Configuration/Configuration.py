@@ -22,7 +22,8 @@ along with Webarok.  If not, see <http://www.gnu.org/licenses/>.
 
 class Configuration( object ):
     def __init__( self ):
-        self.artfolder = "/home/***PLEASE CHANGE THIS***/.kde/share/apps/amarok/albumcovers/"
+        self.artfolder = "/home/verena/.kde/share/apps/amarok/albumcovers/"
+        #self.artfolder = "/home/***PLEASE CHANGE THIS***/.kde/share/apps/amarok/albumcovers/"
         self.staticTheme = "default"
         return
 
