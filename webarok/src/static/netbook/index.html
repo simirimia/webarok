@@ -9,6 +9,7 @@
 
 	<script type="text/javascript" src="js/prototype.js"></script>
 	<script type="text/javascript" src="js/livepipe.js"></script>
+	<script type="text/javascript" src="js/progressbar.js"></script>
 	<script type="text/javascript" src="js/tabs.js"></script>
 
 	<script type="text/javascript" src="netbook/theme.js"></script>
@@ -60,10 +61,7 @@
 		
 		<div id="current_position">
 			Position: <span id="position">&nbsp;</span>ms of <span id="mtime" class="value">&nbsp;</span>ms
-			<div id="progress_wrapper">
-				<div id="progress_background">&nbsp;</div>
-				<div id="progress_foreground">&nbsp;</div>
-			</div>
+			<div id="progressbar"></div>
 		</div>
 	</div>	
 	<div id="settings_tab" style="">
@@ -106,6 +104,9 @@
 	<script type="text/javascript">
 		// init view
 		new Control.Tabs('tab_group');
+		var progress_bar = new Control.ProgressBar('progressbar',{  
+			   interval: 0.05  
+			}); 
 
 		/*$$('.main_tab').each(function(tab_group){  
 		  new Control.Tabs(tab_group);  

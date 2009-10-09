@@ -5,6 +5,9 @@
 	<title>Webarok - The Amarok Web remote control</title>
 	<link rel="stylesheet" href="default/default.css" type="text/css" />
 	<script type="text/javascript" src="js/prototype.js"></script>
+	<script type="text/javascript" src="js/livepipe.js"></script>
+	<script type="text/javascript" src="js/progressbar.js"></script>
+	
 	<script type="text/javascript" src="default/theme.js"></script>
 	<script type="text/javascript" src="js/webarok.js"></script>
 </head>
@@ -47,10 +50,7 @@
 		
 		<div id="current_position">
 			Position: <span id="position">&nbsp;</span>ms of <span id="mtime" class="value">&nbsp;</span>ms
-			<div id="progress_wrapper">
-				<div id="progress_background">&nbsp;</div>
-				<div id="progress_foreground">&nbsp;</div>
-			</div>
+			<div id="progressbar"></div>
 		</div>
 		
 	<div>
@@ -82,6 +82,9 @@
 	
 	
 	<script type="text/javascript">
+		var progress_bar = new Control.ProgressBar('progressbar',{  
+		   interval: 0.05  
+		}); 
 		refreshPlayerStatus();
 		refreshCurrentSong();
 		refreshVolume();

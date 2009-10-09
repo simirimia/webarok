@@ -1,6 +1,8 @@
 var song_length = 0;
 var song_position = 0;
 
+ 
+
 //******* Start: Player status handling
 var player_status_refresher;
 startRefreshingPlayerStatus();
@@ -85,7 +87,6 @@ function repaintCurrentSong( data )
 
 	repaint( data );
 	repaintCurrentPosition( data ); 
-	repaintCurrentPosition( data );
 	try	{
 		$('albumart').src = '/action/Art/' + data['albumartremoteurl'];
 	}	catch( e ) {}
@@ -193,7 +194,9 @@ function repaintVolume( data )
 function repaintCurrentPosition()
 {
 	if ( song_length == 0 ) return;
-	$( 'progress_foreground' ).style.width = (( song_position/song_length ) * 100) + '%'; 
+	//$( 'progress_foreground' ).style.width = (( song_position/song_length ) * 100) + '%'; 
+	progress_bar.setProgress( ( song_position/song_length ) * 100 );
+	
 	
 	/*
 	var data = $H();
