@@ -46,12 +46,15 @@ class TrackList( MediaObjectBase ):
     def playTrack( self, index ):
         if self.backend.getLength() <= index:
             return
+        
         current = self.backend.getCurrentTrack()
         if ( current == index ):
             return
 
         if self.backend_player == "":
             self.backend_player = Backend.Player.Player()
+
+        self.backend_player.volumeMute()
 
         difference = index - current
         if ( ( difference ) > 0 ):
@@ -61,4 +64,6 @@ class TrackList( MediaObjectBase ):
             difference = abs( difference )
             for i in range( difference ):
                 self.backend_player.previous()
+            
+        self.backend_player.volumeMute()
 

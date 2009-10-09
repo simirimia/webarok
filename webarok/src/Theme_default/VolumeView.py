@@ -1,4 +1,3 @@
-import MediaObjects
 from json import JSONEncoder
 
 class VolumeView( object ):

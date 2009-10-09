@@ -42,6 +42,7 @@ class Factory( object ):
         self.volumeget = ""
         self.volumeup = ""
         self.volumedown = ""
+        self.volumemute = ""
         self.currentsong = ""
         self.art = ""
         self.playerstatus = ""
@@ -127,5 +128,9 @@ class Factory( object ):
             if self.volumedown == "":
                 self.volumedown = Volume.VolumeDown()
             return self.volumedown
+        if name == "VolumeMute":
+            if self.volumemute == "":
+                self.volumemute = Volume.VolumeMute()
+            return self.volumemute
 
         return

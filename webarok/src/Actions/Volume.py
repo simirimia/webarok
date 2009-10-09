@@ -51,3 +51,10 @@ class VolumeDown( ActionBase.PlayerActionBase ):
         v.down()
         ActionBase.PlayerActionBase.player.volumeSet( v )
         return True
+    
+class VolumeMute( ActionBase.PlayerActionBase ):
+    def do ( self, param ):
+        if ActionBase.PlayerActionBase.player.isInitialized() == False:
+            return False
+        ActionBase.PlayerActionBase.player.volumeMute()
+        return True

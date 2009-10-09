@@ -86,6 +86,11 @@ class Player( MyDbus.MyDbus ):
         self.player.VolumeSet( v.volume, dbus_interface = 'org.freedesktop.MediaPlayer' )
         return True
 
+    def volumeMute( self ):
+        if self.init() == False:
+            return False
+        self.player.Mute( dbus_interface = 'org.freedesktop.MediaPlayer' )
+        return True
 
     ## Metadata
     def getCurrentSong( self ):
