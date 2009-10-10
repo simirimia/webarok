@@ -72,6 +72,10 @@
 				<input id="check_refresh_playerstatus" type="checkbox" checked="checked" value="1" onChange="toggleRefreshPlayerStatus( this.checked )" /> Autorefresh status every
 				<input type="text" size="3" value="10" id="refresh_rate_playerstatus" onKeyUp='if ( $("check_refresh_playerstatus").checked ) startRefreshingPlayerStatus()'/>s
 			</div>
+			<div>
+				<input id="check_refresh_playlist" type="checkbox" checked="checked" value="1" onChange="toggleRefreshPlaylist( this.checked )" /> Autorefresh playlist every
+				<input type="text" size="3" value="300" id="refresh_rate_playlist" onKeyUp='if ( $("check_refresh_playlist").checked ) startRefreshingPlaylist()'/>s
+			</div>
 		</div>
 	</div>
 	

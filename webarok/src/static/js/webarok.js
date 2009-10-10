@@ -96,16 +96,18 @@ function toggleRefreshCurrentSong( value ) {
 function repaintCurrentSong( data )
 {
 	song_length = data['mtime'];
+	song_position = data['position'];
+	
 	data['position_in_secs'] = data['position'] / 1000;
 	data['position_min'] = Math.floor( data['position_in_secs'] / 60 );
 	data['position_sec'] = Math.floor(((data['position_in_secs'] / 60) - data['position_min']) * 60); 
 	if( data['position_sec'] < 10 ) data['position_sec'] = '0' + data['position_sec']; 
 	
-	song_position = data['position'];
-	if ( current_song_tracklist_index != data['tracklistindex'] )
-	{
-		refreshPlaylist();
-	}
+	$$( '#playlist span.current'  ).each( function(e){ e.removeClassName( 'current' ) } );
+	$$( '.current_playlist_item' ).each( function(e){ e.removeClassName( 'current_playlist_item' ); } );
+	
+	$('playlist_item_' + data['tracklistindex'] ).addClassName( 'current_playlist_item' );
+	$$( '#playlist_item_' + data['tracklistindex'] + ' span' ).each( function(e){ e.addClassName( 'current' ) } );
 	
 	data['duration_min'] = Math.floor( data['time'] / 60 );
 	data['duration_sec'] = Math.floor(((data['time'] / 60) - data['duration_min']) * 60); 
@@ -147,11 +149,24 @@ function refreshPlaylist() {
 	
 }
 function startRefreshingPlaylist() {
+	
 	try {
 		playlist_refresher.stop();
 		playlist_refresher = null;
 	} catch ( e ) {}
-	playlist_refresher = new PeriodicalExecuter( refreshPlaylist, 5 );
+	
+	try	{
+		var rate = parseFloat($('refresh_rate_playlist').value);
+		if ( isNaN(rate) ) {
+			rate = 300;
+		}
+	}
+	catch( e )	{
+		rate = 300;
+	}
+	
+	
+	playlist_refresher = new PeriodicalExecuter( refreshPlaylist, rate );
 } 
 function toggleRefreshPlaylist( value ) {
 	if (value) 	startRefreshingPlaylist();
