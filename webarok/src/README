@@ -30,8 +30,12 @@ Configuration/Configuration.py and edit the line
 
 self.artfolder = "/home/***PLEASE CHANGE THIS***/.kde/share/apps/amarok/albumcovers/"
 
-to match the folder with your setup
+to match the folder with your setup.
 
+If you set up your Amarok configuration in a way that Amarok stores album art within the music
+files directory, set self.artfolder to the root folder of your library, like:
+
+self.artfolder = "/media/MyExternalDrive/Music/"
 
 3. Starting Webarok
 ===================
@@ -95,6 +99,9 @@ Visit http://sourceforge.net/projects/webarok/ and check forums or mailing lists
 
 7. CREDITS
 ===========
+
+Patches:
+khaytsus (default/transparent theme)
 
 Libraries:
 Prototype Javascript library: http://www.prototypejs.org

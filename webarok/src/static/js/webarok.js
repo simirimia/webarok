@@ -96,6 +96,11 @@ function toggleRefreshCurrentSong( value ) {
 function repaintCurrentSong( data )
 {
 	song_length = data['mtime'];
+	data['position_in_secs'] = data['position'] / 1000;
+	data['position_min'] = Math.floor( data['position_in_secs'] / 60 );
+	data['position_sec'] = Math.floor(((data['position_in_secs'] / 60) - data['position_min']) * 60); 
+	if( data['position_sec'] < 10 ) data['position_sec'] = '0' + data['position_sec']; 
+	
 	song_position = data['position'];
 	if ( current_song_tracklist_index != data['tracklistindex'] )
 	{
@@ -104,7 +109,7 @@ function repaintCurrentSong( data )
 	
 	data['duration_min'] = Math.floor( data['time'] / 60 );
 	data['duration_sec'] = Math.floor(((data['time'] / 60) - data['duration_min']) * 60); 
-
+	if( data['duration_sec'] < 10 ) data['duration_sec'] = '0' + data['duration_sec'];
 	repaint( data );
 	repaintCurrentPosition( data ); 
 	try	{
@@ -150,7 +155,12 @@ function startRefreshingPlaylist() {
 } 
 function toggleRefreshPlaylist( value ) {
 	if (value) 	startRefreshingPlaylist();
-	else		playlist_refresher.stop();
+	else {
+		try {
+			playlist_refresher.stop();
+		}
+		catch( e ) {}
+	}
 }
 
 var playlist_item_template = new Template( playlist_item_template_html );
