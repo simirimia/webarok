@@ -3,7 +3,7 @@
 rm -rf build
 mkdir build
 cd build
-svn co https://webarok.svn.sourceforge.net/svnroot/webarok webarok 
+svn co https://webarok.svn.sourceforge.net/svnroot/webarok/webarok/src webarok 
 find . -name ".svn" -exec rm -rf {} \;
 tar cjf webarok.tar.bz2 webarok
 rm -rf build
