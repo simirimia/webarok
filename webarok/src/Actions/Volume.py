@@ -36,7 +36,7 @@ class VolumeGet( ActionBase.PlayerActionBase ):
 
 class VolumeUp( ActionBase.PlayerActionBase ):
     def do( self, param ):
-        if ActionBase.PlayerActionBase.player.isInitialized():
+        if ActionBase.PlayerActionBase.player.isInitialized() == False: 
             return False
         v = ActionBase.PlayerActionBase.player.volumeGet()
         v.up()
