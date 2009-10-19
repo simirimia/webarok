@@ -22,6 +22,7 @@ along with Webarok.  If not, see <http://www.gnu.org/licenses/>.
 from Actions import ActionBase
 from base64 import b64decode
 from urllib import urlopen
+from urllib import unquote
 import os
 
 class Art( ActionBase.ActionBase ):
@@ -34,6 +35,7 @@ class Art( ActionBase.ActionBase ):
             return
         if filename.startswith( "file://" ):
             filename = filename[7:]
+            filename = unquote( filename );
         print filename
         if not os.path.isfile( filename ):
             print "file does not exist"
