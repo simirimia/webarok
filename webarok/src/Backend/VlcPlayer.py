@@ -22,11 +22,11 @@ along with Webarok.  If not, see <http://www.gnu.org/licenses/>.
 
 from Backend.BaseDbusPlayer import BaseDbusPlayer
 
-class AmarokPlayer( BaseDbusPlayer ):
+class VlcPlayer( BaseDbusPlayer ):
 
     def __init__( self ):
-        print "initializing Backend/AmarokPlayer"
-        BaseDbusPlayer.__init__( self, "org.kde.amarok" )
+        print "initializing Backend/VlcPlayer"
+        BaseDbusPlayer.__init__( self, "org.mpris.vlc" )
         return
 
 

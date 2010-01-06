@@ -22,11 +22,11 @@ along with Webarok.  If not, see <http://www.gnu.org/licenses/>.
 
 from Backend.BaseDbusPlayer import BaseDbusPlayer
 
-class AmarokPlayer( BaseDbusPlayer ):
+class XbmCPlayer( BaseDbusPlayer ):
 
     def __init__( self ):
-        print "initializing Backend/AmarokPlayer"
-        BaseDbusPlayer.__init__( self, "org.kde.amarok" )
+        print "initializing Backend/XbmcPlayer"
+        BaseDbusPlayer.__init__( self, "org.mpris.xbmc" )
         return
 
 

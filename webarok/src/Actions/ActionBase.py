@@ -23,6 +23,7 @@ along with Webarok.  If not, see <http://www.gnu.org/licenses/>.
 
 from Configuration import Configuration
 from Backend.AmarokPlayer import AmarokPlayer
+#from Backend.VlcPlayer import VlcPlayer
 from Backend.TrackList import TrackList
 
 class ActionBase( object ):
@@ -36,7 +37,8 @@ class ActionBase( object ):
 
 class PlayerActionBase( ActionBase ):
     player = AmarokPlayer()
-
+    #player = VlcPlayer()
+    
     def bla( self, param ):
         return
 
