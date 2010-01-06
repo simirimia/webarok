@@ -22,7 +22,7 @@ along with Webarok.  If not, see <http://www.gnu.org/licenses/>.
 
 
 from Configuration import Configuration
-from Backend.Player import Player
+from Backend.AmarokPlayer import AmarokPlayer
 from Backend.TrackList import TrackList
 
 class ActionBase( object ):
@@ -35,7 +35,7 @@ class ActionBase( object ):
         pass
 
 class PlayerActionBase( ActionBase ):
-    player = Player()
+    player = AmarokPlayer()
 
     def bla( self, param ):
         return

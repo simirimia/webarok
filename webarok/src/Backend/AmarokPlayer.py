@@ -27,9 +27,10 @@ from MediaObjects import Volume
 from MediaObjects.PlayerStatus import PlayerStatus
 from dbus.exceptions import DBusException
 
-class Player( MyDbus.MyDbus ):
+class AmarokPlayer( MyDbus.MyDbus ):
 
     def __init__( self ):
+        print "initializing Backend/Player/Player"
         MyDbus.MyDbus.__init__( self, "org.kde.amarok" )
         self.init()
         return
