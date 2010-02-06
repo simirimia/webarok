@@ -22,6 +22,9 @@ along with Webarok.  If not, see <http://www.gnu.org/licenses/>.
 
 from Backend.BaseDbusPlayer import BaseDbusPlayer
 
+# VLC needs to be started with "vlc --control dbus" explicitly
+# otherwise the DBUS server is not started
+ 
 class VlcPlayer( BaseDbusPlayer ):
 
     def __init__( self ):
