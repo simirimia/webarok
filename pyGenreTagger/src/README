@@ -1,0 +1,96 @@
+pyGenreTagger is a python script which grabs tag information from last.fm 
+and updates the genre tag of MP3 files.
+It filters the tags so that in the end hopefully a uselful information is
+written to the file. Tag mappings can be defined to unify the genre naming.
+
+
+0. Prerequisites
+================
+
+You need to have installed
+1. Python (tested with version 2.6)
+2. Python mutagen library (packge: python-mutagen on kubuntu 9.10)
+
+
+1. Installation
+===============
+
+Get the sourcecode and place it somewhere on the same computer as 
+your local music library is attached to.
+
+
+2. Configuration
+================
+
+You can configre the tag mappings and the tag blacklist. Both is defined in the file
+tag/GenreHandler.py.
+
+BLACKLIST:
+Search for the line "tagBlacklist = [ " (currently line 31) and add/remove entries to 
+this list. Take care that you never forget the , at the end of a line! If you do so, 
+no error is triggerd but all following entries are not taken into account.
+Especially check the part "# tags I personally dislike", this are some tags I do not 
+want to have as genre in my media library, but other people may like them. If you do so,
+just remove the entry from that list.
+ 
+GENRE MAPPING:
+Search for the line "tagMapping = {" (currently line 107) and add/remove entries to this
+dictionary. 
+The entry
+    'spoken word'               : 'speech', 
+will replace the tag 'spoken word' by the genre 'speech'.
+
+
+3. Using the tagger
+===================
+
+A GUI is in preparation, but for now only the command line interface is usable:
+
+cd <<Whereever you copied the sources>>
+./tagger.py -m MODE -b BASEDIR
+
+mode is either dry for a dryrun or update for really updating the files
+use -m MODE or --mode=MODE
+    -b BASEDIR or --basedir=BASEDIR
+
+BASEDIR must be an absolute path
+
+Some examples:
+
+Check what genre tagger would do with the whole music library, but
+don't change anything:
+./tagger.py -m dry -b /home/$USER/Music
+
+
+Check a subfolder (most likely one artist):
+./tagger.py -m dry -b /home/$USER/Music/Green\ Day
+
+
+Update all music files in a subfolder:
+./tagger.py -m update -b /home/$USER/Music/Green\ Day
+
+
+If you want to try out the GUI (really ugly, do not complain I didn't warn you):
+tagger.py -g [--gui]
+
+
+4. Troubleshooting
+==================
+
+Visit http://sourceforge.net/projects/webarok/ and check forums or mailing lists
+
+
+5. CREDITS
+===========
+
+'Dive Into Python', a free Python book
+Visit http://diveintopython.org
+for the openanything.py module
+
+Python:
+http://www.python.org
+
+And of course all the basic stuff:
+http://www.kde.org
+http:/qt.nokia.com
+http://www.linux.org
