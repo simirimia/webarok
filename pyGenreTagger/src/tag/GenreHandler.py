@@ -2,6 +2,7 @@
 """
 (c) webarok project
 http://sourceforge.net/projects/webarok/
+http://simirimia.triosolutions.at/
 
 This file is part of Webarok.
 
@@ -99,8 +100,8 @@ class GenreHandler(object):
                     'only the top songs-no global artist-tags please','no future girls','girls in the garage','ma pierd in piesa asta',
                     'obv radical','eerie','chick-rock','songs under two minutes','meine heimatlieder','gute laune gitarren pop',
                     'world music','love it like le kittins on a stick','fantasterific','anyzio rocha','youth crew',
-                    'get going','es ist egal','hot songs','songs i absolutely love',
-                    
+                    'get going','es ist egal','hot songs','songs i absolutely love','nielslive','intoxicated','gaensehaut',
+                    'california seixas','heart major','artist to check out','naive','thisdrums''songs about love','vvussel'
                     ]
     
     tagMapping = {
@@ -158,6 +159,7 @@ class GenreHandler(object):
     def updateGenre(self, filename):
         genre = self.getGenre(filename)
         self.mp3['genre'] = unicode(genre)
+        print "Saving.."
         self.mp3.save()
         return genre
         
@@ -176,8 +178,8 @@ class GenreHandler(object):
             tags = self.getTagsByArtist(filename)
             genre = self.resolveTagsToGenre(tags)
         
+        genre = unicode(genre).capitalize()
         self.tagsUsed.append(genre)
-        return genre
     
     def getTagsByArtist(self, filename):
         self.getMp3(filename)

@@ -4,6 +4,7 @@ a wrapper around file system operations
 
 (c) webarok project
 http://sourceforge.net/projects/webarok/
+http://simirimia.triosolutions.at/
 
 This file is part of Webarok.
 
@@ -25,8 +26,9 @@ import os
 
 class fileSystemHandler(object):
     
-    def __init__(self, callback):
+    def __init__(self, callback, log):
         self.callback = callback
+        self.log = log
     
     """
     get all filenames in a tree structure like
@@ -75,7 +77,7 @@ class fileSystemHandler(object):
             # omit hidden files
             return
         if filename[-4:] != '.mp3':
-            print "only mp3 files supported so far"
+            self.log.addMessage( "only mp3 files supported so far" )
             return
-        print str(self.callback( filename )) + "\t\t<--->\t\t" + filename  
+        self.log.addMessage( str(self.callback( filename )) + "\t\t<--->\t\t" + filename )  
         pass

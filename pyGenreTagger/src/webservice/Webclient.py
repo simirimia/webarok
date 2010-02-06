@@ -4,6 +4,7 @@ a wrapper around openanything.py
 
 (c) webarok project
 http://sourceforge.net/projects/webarok/
+http://simirimia.triosolutions.at/
 
 This file is part of Webarok.
 
