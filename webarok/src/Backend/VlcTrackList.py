@@ -1,5 +1,5 @@
 """
-Base  class for dbus control
+Contral amarok player via dbus
 
 (c) webarok project
 http://sourceforge.net/projects/webarok/
@@ -19,22 +19,11 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Webarok.  If not, see <http://www.gnu.org/licenses/>.
 """
+from Backend.BaseDbusTrackList import BaseDbusTrackList
 
-import dbus
-
-class MyDbus( object ):
-
-    def __init__( self, program ) :
-        #print "init MyDbus class"
-        self.initialized = False
-        self.bus = dbus.SessionBus()
-        self.program = program
-        return
-
-    def getObject( self, wanted ):
-        return self.bus.get_object( self.program, wanted )
+class VlcTrackList( BaseDbusTrackList ):
     
-    def isInitialized( self ):
-        return self.initialized
-
-
+    def __init__( self ):
+        BaseDbusTrackList.__init__( self, "org.mpris.vlc" )
+        return 
+    

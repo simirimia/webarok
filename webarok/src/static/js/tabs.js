@@ -9,6 +9,13 @@
 
 /*global window, document, Prototype, $, $A, $H, $break, Class, Element, Event, Control */
 
+/*---------------
+
+Updated for WebarK (Phone-Theme/Update on Tabs)
+
+------------*/
+
+
 if(typeof(Prototype) == "undefined") {
     throw "Control.Tabs requires Prototype to be loaded."; }
 if(typeof(Object.Event) == "undefined") {
@@ -112,6 +119,20 @@ Control.Tabs = Class.create({
             this.options.showFunction(this.containers.get(link.key));
             this.notify('afterChange',this.containers.get(link.key));
         }
+
+	//--------------- WebaroK-Update-START ----------------------
+	seltab = link.toString().split("#");
+	seltab = seltab[seltab.length-1];
+	if (seltab == "main_tab"){
+	    refreshVolume();
+	    refreshCurrentSong( 1 );
+	    refreshPlayerStatus();
+	} else if (seltab == "playlist_tab"){
+	    refreshPlaylist();
+	} else if (seltab == "lyrics_tab"){
+	    refreshCurrentSong( 1 );
+	}
+	//--------------- WebaroK-Update-END ------------------------
     },
     next: function(){
         this.links.each(function(link,i){

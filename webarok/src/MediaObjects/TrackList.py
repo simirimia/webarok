@@ -19,13 +19,14 @@ along with Webarok.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 from MediaObjects.MediaObjectBase import MediaObjectBase
+import Actions
 import Backend
 
 class TrackList( MediaObjectBase ):
 
     def __init__( self ):
         self.tracklist = []
-        self.backend = Backend.TrackList.TrackList()
+        self.backend = Actions.ActionBase.TrackListActionBase.tracklist
         self.backend_player = ""
 
     def appendSong( self, song ):
@@ -35,6 +36,7 @@ class TrackList( MediaObjectBase ):
         return { "tracklist" : self.tracklist }
 
     def getTrackListPart( self, startat, getto ):
+        print "getTrackListPart" 
         for i in range( startat, getto + 1 ):
             self.appendSong( self.backend.getSong( i ).getDictionary() )
         return
@@ -48,13 +50,24 @@ class TrackList( MediaObjectBase ):
             return
         
         current = self.backend.getCurrentTrack()
+        
         if ( current == index ):
             return
 
         if self.backend_player == "":
-            self.backend_player = Backend.Player.Player()
+            self.backend_player = Actions.ActionBase.PlayerActionBase.player
 
-        self.backend_player.volumeMute()
+        # @todo
+        # try PlayTrack directly
+        # Amarok has a new playTrack method available via DBus
+        # self.backend_player.play
+
+
+        try:
+            self.backend_player.volumeMute()
+        except:
+            # player does not support mute
+            pass
 
         difference = index - current
         if ( ( difference ) > 0 ):
@@ -65,5 +78,9 @@ class TrackList( MediaObjectBase ):
             for i in range( difference ):
                 self.backend_player.previous()
             
-        self.backend_player.volumeMute()
+        try:
+            self.backend_player.volumeMute()
+        except:
+            # player does not support mute
+            pass
 

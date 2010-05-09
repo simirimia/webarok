@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 (c) webarok project
 http://sourceforge.net/projects/webarok/
@@ -25,8 +26,6 @@ class Volume( object ):
         return
 
     def initFromDbus( self, d ):
-        print "init volume from dbus"
-        print d
         self.volume = d
         return
 

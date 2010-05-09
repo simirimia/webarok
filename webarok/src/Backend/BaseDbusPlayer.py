@@ -104,7 +104,10 @@ class BaseDbusPlayer( MyDbus.MyDbus ):
         song = Song.Song()
 
         # get current position from tracklist
-        tracklist = Backend.TrackList.TrackList()
+        # use TrackListActionBase to get the correct traclist 
+#        tracklist = Backend.TrackList.TrackList()
+        from Actions.ActionBase import TrackListActionBase
+        tracklist = TrackListActionBase.tracklist
         current = tracklist.getCurrentTrack()
         song.initFromDictionary( dbus_song, current, current )
 

@@ -37,6 +37,14 @@ files directory, set self.artfolder to the root folder of your library, like:
 
 self.artfolder = "/media/MyExternalDrive/Music/"
 
+MySql-Collection-Search:
+Amarok must use a external MySql Database
+Edit:
+Configuration/Configuration.py:
+Change self.mySqlOpts to match your settings
+
+If you won't use MySql you may set self.useCollection to False to avoid MySql-Errors.
+
 3. Starting Webarok
 ===================
 
@@ -47,7 +55,7 @@ python webarok.py
 
 If everything is OK, there should be some output like:
 
-init MyDbus class
+(init MyDbus class)
 Starting webarok server
 
 
@@ -79,6 +87,12 @@ http://<<$YOUR_IP>>:8085/index?theme=transparent
 http://<<$YOUR_IP>>:8085/index?theme=netbook
 --> uses a tab view to separate current song and controls, playlist and settings,
 --> uses also a smaller font to save screen estate
+
+http://<<$YOUR_IP>>:8085/index?theme=phone
+--> uses a tab view to separate current song and controls, playlist, lyrics, collection search and settings,
+--> uses also a smaller font to save screen estate
+--> UI similar to KDE4
+--> see explore_phone_theme.jpg for more details
 
 5. Notes
 ========

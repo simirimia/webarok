@@ -22,6 +22,7 @@ along with Webarok.  If not, see <http://www.gnu.org/licenses/>.
 
 from Actions import ActionBase
 
+
 class Next( ActionBase.PlayerActionBase ):
     def do( self, param ):
         if ActionBase.PlayerActionBase.player.isInitialized() == False:
@@ -56,4 +57,21 @@ class Stop( ActionBase.PlayerActionBase ):
         if ActionBase.PlayerActionBase.player.isInitialized() == False:
             return False        
         ActionBase.PlayerActionBase.player.stop()
+        return True
+
+class Seek( ActionBase.PlayerActionBase ):
+    def do( self, param ):
+        if ActionBase.PlayerActionBase.player.isInitialized() == False:
+            return False
+        song = ActionBase.PlayerActionBase.player.getCurrentSong()
+        
+        time = song.getDictionary()["mtime"]        
+        #print "DEBUG: "+str(time)
+        positionToGo = time * float(param)/100.0
+        if positionToGo<0:
+          positionToGo = 0
+        if positionToGo>time-1:
+          positionToGo = time-1 
+        #print "DEBUG: "+str(int(positionToGo))
+        ActionBase.PlayerActionBase.player.seek( int(positionToGo) )
         return True

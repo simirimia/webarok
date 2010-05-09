@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 (c) webarok project
 http://sourceforge.net/projects/webarok/

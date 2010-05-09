@@ -23,6 +23,30 @@ along with Webarok.  If not, see <http://www.gnu.org/licenses/>.
 class Configuration( object ):
     def __init__( self ):
         self.artfolder = "/home/***PLEASE CHANGE THIS***/.kde/share/apps/amarok/albumcovers/"
+        #self.artfolder = "/home/verena/.kde/share/apps/amarok/albumcovers/"
         self.staticTheme = "default"
+        
+        # check if mysql module is available
+        # only used in context with Amarok as player 
+        try:
+            from MyMySql import MyMySql
+        
+            self.useCollection = True
+            self.mySqlOpts = {
+              'host': "localhost",
+              'user': "amarokuser",
+              'pass': "amarok",
+              'db':   "amarokdb"
+            } 
+        except:
+            self.useCollection = False
+         
+        # type of player  
+        # VLC needs to be started with "vlc --control dbus" explicitly
+        # otherwise the DBUS server is not started
+        
+        self.player = 'amarok'    
+        #self.player = 'vlc'
+        #self.player = 'xbmc'    
         return
 

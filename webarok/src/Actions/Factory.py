@@ -30,15 +30,23 @@ from Actions.TrackList import TrackListGet
 from Actions.TrackList import TrackListGetElement
 from Actions.TrackList import TrackListDeleteElement
 from Actions.TrackList import TrackListPlayElement
+from Actions.Collection import CollectionSearchArtist
+from Actions.Collection import CollectionSearchTitle
+from Actions.Collection import CollectionSearchAll
+from Actions.Collection import CollectionPutElementInTrackList
+from Actions.Collection import CollectionPlayElement
+from Configuration import Configuration
 
 class Factory( object ):
 
     def __init__( self ):
+        self.config = Configuration.Configuration()
         self.next = ""
         self.previous = ""
         self.play = ""
         self.stop = ""
         self.pause = ""
+        self.seek = ""
         self.volumeget = ""
         self.volumeup = ""
         self.volumedown = ""
@@ -51,9 +59,39 @@ class Factory( object ):
         self.tracklistelement = ""
         self.tracklistdeleteelement = ""
         self.tracklistplayelement = ""
+        self.searchtitle = ""
+        self.searchartist = ""
+        self.searchall = ""
+        self.searchplayelement = ""
+        self.searchputelementtotracklist = ""
         return
 
     def get( self, name ):
+        if (self.config.useCollection == True):
+            if name == "SearchTitle":
+                if self.searchtitle == "":
+                    self.searchtitle = CollectionSearchTitle()
+                return self.searchtitle
+
+            if name == "SearchArtist":
+                if self.searchartist == "":
+                    self.searchartist = CollectionSearchArtist()
+                return self.searchartist
+
+            if name == "SearchAll":
+                if self.searchall == "":
+                    self.searchall = CollectionSearchAll()
+                return self.searchall
+
+            if name == "SearchPlayElement":
+                if self.searchplayelement == "":
+                    self.searchplayelement = CollectionPlayElement()
+                return self.searchplayelement
+
+            if name == "SearchPutElementToTrackList":
+                if self.searchputelementtotracklist == "":
+                    self.searchputelementtotracklist = CollectionPutElementInTrackList()
+                return self.searchputelementtotracklist
 
         if name == "TrackListPlayElement":
             if self.tracklistplayelement == "":
@@ -115,6 +153,10 @@ class Factory( object ):
             if self.play == "":
                 self.play = PlayerControls.Play()
             return self.play
+        if name == "Seek":
+            if self.seek == "":
+                self.seek = PlayerControls.Seek()
+            return self.seek
 
         if name == "VolumeGet":
             if self.volumeget == "":

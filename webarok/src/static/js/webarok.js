@@ -44,7 +44,10 @@ function repaintPlayerStatus( data )
 			break;
 		case 'paused':
 			$('control_stop').style.display = '';
-			$('control_pause').style.display = 'none';
+			// VLC expects a pause in paused mode
+			// Amarok expects a play in paused mode
+			//$('control_pause').style.display = 'none';
+			$('control_pause').style.display = '';
 			$('control_play').style.display = '';
 			toggleRefreshProgress( false );
 			toggleRefreshCurrentSong( false );
@@ -65,11 +68,18 @@ function repaintPlayerStatus( data )
 //******* End: Player status handling
 
 //******* Start: Current Song handling
+
+//To prevent refresing the same data:
+var currentsong = "";
 var current_song_refresher; 
 startRefreshingCurrentSong();
 
-function refreshCurrentSong() {
+function refreshCurrentSong( all ) {
 	callWebarokWithReturn( 'CurrentSong', 'repaintCurrentSong' );
+	if ( all == 1 ){
+	
+		currentsong = "";
+	}
 }
 function startRefreshingCurrentSong() {
 	try {
@@ -93,30 +103,49 @@ function toggleRefreshCurrentSong( value ) {
 	if (value)	startRefreshingCurrentSong();
 	else		current_song_refresher.stop();
 }
+
+
 function repaintCurrentSong( data )
 {
+	if (data['lyrics']!=""){
+	data['lyrics'] = nl2br(data['lyrics']);
+	}else{
+	data['lyrics'] = "No Lyrics found. (Click to refresh)"
+	}
 	song_length = data['mtime'];
 	song_position = data['position'];
-	
 	data['position_in_secs'] = data['position'] / 1000;
 	data['position_min'] = Math.floor( data['position_in_secs'] / 60 );
 	data['position_sec'] = Math.floor(((data['position_in_secs'] / 60) - data['position_min']) * 60); 
 	if( data['position_sec'] < 10 ) data['position_sec'] = '0' + data['position_sec']; 
 	
+	if (currentsong!=(data['title']+data['artist']+data['album']+data['mtime'])){
+	currentsong = (data['title']+data['artist']+data['album']+data['mtime']);
+	//window.status = currentsong;
 	$$( '#playlist span.current'  ).each( function(e){ e.removeClassName( 'current' ) } );
 	$$( '.current_playlist_item' ).each( function(e){ e.removeClassName( 'current_playlist_item' ); } );
 	
-	$('playlist_item_' + data['tracklistindex'] ).addClassName( 'current_playlist_item' );
-	$$( '#playlist_item_' + data['tracklistindex'] + ' span' ).each( function(e){ e.addClassName( 'current' ) } );
+	try {
+		$('playlist_item_' + data['tracklistindex'] ).addClassName( 'current_playlist_item' );
+	}
+	catch( e ) {}
+	
+	try {
+		$$( '#playlist_item_' + data['tracklistindex'] + ' span' ).each( function(e){ e.addClassName( 'current' ) } );
+	}
+	catch( e ) {}
 	
 	data['duration_min'] = Math.floor( data['time'] / 60 );
 	data['duration_sec'] = Math.floor(((data['time'] / 60) - data['duration_min']) * 60); 
 	if( data['duration_sec'] < 10 ) data['duration_sec'] = '0' + data['duration_sec'];
+	
+	
 	repaint( data );
-	repaintCurrentPosition( data ); 
 	try	{
-		$('albumart').src = '/action/Art/' + data['albumartremoteurl'];
+		$('albumart').src = '/action/Art/' + data['albumartremoteurl'];      
 	}	catch( e ) {}
+        }
+	repaintCurrentPosition( data ); 
 } 
 //******* End: Current Song handling
 
@@ -191,7 +220,7 @@ function repaintPlaylist( data ) {
 		}
 		playlist = playlist + playlist_item_template.evaluate(conv);
 	});
-	$('playlist').innerHTML = '<table>' + playlist + '</table>';
+	$('playlist').innerHTML = '<table><tr><th>Interpret</th><th>Titel</th></tr>' + playlist + '</table>';
 }
 
 function play_from_list( index )
@@ -247,12 +276,13 @@ function repaintVolume( data )
 
 //******* Start: Position handling
 // partly integrated in current song handling
-function repaintCurrentPosition()
+function repaintCurrentPosition( data )
 {
 	if ( song_length == 0 ) return;
 	//$( 'progress_foreground' ).style.width = (( song_position/song_length ) * 100) + '%'; 
 	progress_bar.setProgress( ( song_position/song_length ) * 100 );
-	
+	$('position_min').innerHTML = data['position_min'];
+	$('position_sec').innerHTML = data['position_sec'];
 	
 	/*
 	var data = $H();
@@ -336,4 +366,76 @@ function callWebarok( action, doOnSuccess )
 	});
 
 }
+
+//http://snipplr.com/view/634/replace-newlines-with-br-platform-safe/
+function nl2br(text){
+	text = escape(text);
+	if(text.indexOf('%0D%0A') > -1){
+	    re_nlchar = /%0D%0A/g ;
+	}else if(text.indexOf('%0A') > -1){
+	    re_nlchar = /%0A/g ;
+	}else if(text.indexOf('%0D') > -1){
+	    re_nlchar = /%0D/g ;
+	}
+	return unescape( text.replace(re_nlchar,'<br />') );
+}
 //******* End: basic functions
+
+//******* Start: Search handling
+
+function collectionSearchAll() {
+	try
+	{
+		$('searchresults').hide();
+	}
+	catch ( e ) {}
+	
+	
+	callWebarokWithReturn( 'Search'+$F('searchtags')+'/'+$F('searchterm'), 'repaintSearchResults' ); 
+	
+	try
+	{
+		$('searchresults').show();
+	}
+	catch ( e ) {}
+	
+}
+
+var searchresult_item_template = new Template( searchresult_item_template_html );
+function repaintSearchResults( data ) {
+	var searchresults = '';
+	data.each(  function(conv){
+		searchresults = searchresults + searchresult_item_template.evaluate(conv);
+	});
+	$('searchresults').innerHTML = '<table><tr><th>Interpret</th><th>Titel</th></tr>' + searchresults + '</table>';
+}
+
+function playElement( url )
+{
+	callWebarok( 'SearchPlayElement/' + url );
+	refreshPlaylist();
+}
+
+function collectionPutElementInTrackList( url )
+{
+	callWebarok( 'SearchPutElementToTrackList/' + url );
+	refreshPlaylist();
+	$('search_result_' + url).addClassName("inPlaylist");
+}
+//******* End: Search handling
+
+
+
+//******* Start: Seek handling
+
+// For seeking with the progressbar only
+
+function seek(e) {
+	var xPos = Event.pointerX(e);
+	xPos = xPos-10;
+	percent = xPos*100.0/285.0;
+        //alert (percent);
+	callWebarok( 'Seek/' + percent );
+	refreshCurrentSong();
+}
+//******* End: Seek handling

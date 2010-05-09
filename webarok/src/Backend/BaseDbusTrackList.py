@@ -24,13 +24,13 @@ from MyDbus import MyDbus
 from MediaObjects.Song import Song
 from dbus.exceptions import DBusException
 
-class TrackList( MyDbus ):
+class BaseDbusTrackList( MyDbus ):
 
-    def __init__( self ):
-        MyDbus.__init__( self, "org.kde.amarok" )
+    def __init__( self, program ):
+        MyDbus.__init__( self, program )
         self.init()
         return
-    
+
     def init(self):
         try:
             self.tracklist = self.getObject( '/TrackList' )

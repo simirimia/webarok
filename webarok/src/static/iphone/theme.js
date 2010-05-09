@@ -7,3 +7,5 @@ var playlist_item_template_html = "<tr id=\"playlist_item_#{tracklistindex}\"  c
 */
 
 var playlist_item_template_html = "<li><a href=''><span class='number'>#{tracklistindex}</span><span class='name'>#{artist}</span>&nbsp;<span class='name'>#{album}</span>&nbsp;<span class='name'>#{title}</span></a></li>"
+
+var searchresult_item_template_html = "";

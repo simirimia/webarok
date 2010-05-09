@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import MediaObjects
 from json import JSONEncoder
 

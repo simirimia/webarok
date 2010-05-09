@@ -22,9 +22,7 @@ along with Webarok.  If not, see <http://www.gnu.org/licenses/>.
 
 
 from Configuration import Configuration
-from Backend.AmarokPlayer import AmarokPlayer
-#from Backend.VlcPlayer import VlcPlayer
-from Backend.TrackList import TrackList
+from Backend.Collection import Collection
 
 class ActionBase( object ):
 
@@ -36,14 +34,38 @@ class ActionBase( object ):
         pass
 
 class PlayerActionBase( ActionBase ):
-    player = AmarokPlayer()
-    #player = VlcPlayer()
-    
+
+    if Configuration.Configuration().player == "vlc":
+        from Backend.VlcPlayer import VlcPlayer
+        player = VlcPlayer()
+    elif Configuration.Configuration().player == "xbmc":
+        from Backend.XbmcPlayer import XbmCPlayer
+        player = XbmCPlayer()
+    else: # amarok is default player
+        from Backend.AmarokPlayer import AmarokPlayer
+        player = AmarokPlayer()
+        
     def bla( self, param ):
         return
 
 class TrackListActionBase( ActionBase ):
-    tracklist = TrackList()
+    #tracklist = TrackList()
+
+    if Configuration.Configuration().player == "vlc":
+        from Backend.VlcTrackList import VlcTrackList
+        tracklist = VlcTrackList()
+#    elif Configuration.Configuration().player == "xbmc":
+#        from Backend.XbmcPlayer import XbmCPlayer
+#        player = XbmCPlayer()
+    else: # amarok is default player
+        from Backend.AmarokTrackList import AmarokTrackList
+        tracklist = AmarokTrackList()
+
+    def bla( self, param ):
+        return
+
+class CollectionActionBase( ActionBase ):
+    collection = Collection()
 
     def bla( self, param ):
         return

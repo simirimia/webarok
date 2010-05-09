@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Tracklist related actions
 
@@ -23,7 +24,6 @@ along with Webarok.  If not, see <http://www.gnu.org/licenses/>.
 from Actions.ActionBase import TrackListActionBase
 from MediaObjects.TrackList import TrackList
 from json import JSONEncoder
-#from string import atoi
 
 class TrackListLength( TrackListActionBase ):
     def do( self, param ):
@@ -39,11 +39,11 @@ class TrackListGet( TrackListActionBase ):
         tlength = TrackListLength()
         tlength.do( "" )
 
-        print "Get TrackList: " + param
+        #print "Get TrackList: " + param
         t = param.rsplit( '&' )
-        print t
+        #print t
         p = t[0].rsplit( '=' )
-        print p
+        #print p
         if p[0] == 'from':
             startat = int( p[1] );
         else:
@@ -56,9 +56,9 @@ class TrackListGet( TrackListActionBase ):
                 getto = int( p[1] );
             else:
                 getto = startat + 10
-            print "getto: " + getto.__str__()
+            #print "getto: " + getto.__str__()
         except:
-            print "exept happend"
+            #print "exept happend"
             getto = tlength.length - 1
 
 
@@ -76,7 +76,7 @@ class TrackListGet( TrackListActionBase ):
         encoder = JSONEncoder()
         tmp = []
         for element in tracklist.tracklist:
-            print type( element )
+            #print type( element )
             if type( element ) == type( {} ):
                 tmp.append( element )
             else:
@@ -89,14 +89,14 @@ class TrackListGetElement( TrackListActionBase ):
     def do ( self, param ):
         #param is TrackLIst index
         song = TrackListActionBase.tracklist.getSong( int( param ) )
-        print "Song in Action TrackListGetElement"
-        print song.getDictionary()
+        #print "Song in Action TrackListGetElement"
+        #print song.getDictionary()
         self.out = song.getDictionary
         return
 
 class TrackListDeleteElement( TrackListActionBase ):
     def do( self, param ):
-        print "TrackListDeleteElement calld with: " + param
+        #print "TrackListDeleteElement calld with: " + param
         #param is TrackList index
         tracklist = TrackList()
         tracklist.deleteTrack( int( param ) )

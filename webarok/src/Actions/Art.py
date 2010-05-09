@@ -27,18 +27,18 @@ import os
 
 class Art( ActionBase.ActionBase ):
     def do( self, param ):
-        print "Getting Art:"
+        #print "Getting Art:"
         filename = b64decode( param )
-        print filename
+        #print filename
         if len( filename ) == 0:
-            print "no filename given"
+            #print "no filename given"
             return
         if filename.startswith( "file://" ):
             filename = filename[7:]
             filename = unquote( filename );
         print filename
         if not os.path.isfile( filename ):
-            print "file does not exist"
+            print "file does not exist" + str( filename )
             return
         if self.config.artfolder != "" and filename.startswith( self.config.artfolder ) == False:
             return
