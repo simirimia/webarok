@@ -46,6 +46,7 @@ class Factory( object ):
         self.play = ""
         self.stop = ""
         self.pause = ""
+        self.unpause = ""
         self.seek = ""
         self.volumeget = ""
         self.volumeup = ""
@@ -145,6 +146,10 @@ class Factory( object ):
             if self.pause == "":
                 self.pause = PlayerControls.Pause()
             return self.pause
+        if name == "Unpause":
+            if self.unpause == "": 
+                self.unpause = PlayerControls.Unpause()
+            return self.unpause
         if name == "Previous":
             if self.previous == "":
                 self.previous = PlayerControls.Previous()

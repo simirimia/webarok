@@ -45,8 +45,8 @@ class Configuration( object ):
         # VLC needs to be started with "vlc --control dbus" explicitly
         # otherwise the DBUS server is not started
         
-        self.player = 'amarok'    
-        #self.player = 'vlc'
+        #self.player = 'amarok'    
+        self.player = 'vlc'
         #self.player = 'xbmc'    
         return
 

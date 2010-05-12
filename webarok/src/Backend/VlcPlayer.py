@@ -32,4 +32,8 @@ class VlcPlayer( BaseDbusPlayer ):
         BaseDbusPlayer.__init__( self, "org.mpris.vlc" )
         return
 
+    def unpause( self ):
+        print "unpause in vlcplayer"
+        # VLC need another pause to unpause
+        BaseDbusPlayer.pause(self)
 

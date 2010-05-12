@@ -63,6 +63,13 @@ class BaseDbusPlayer( MyDbus.MyDbus ):
             return False
         self.player.Pause( dbus_interface = self.dbus_interface_name )
         return True
+    def unpause( self ):
+        print "unpause in basedbusplayer"
+        # by default, to unpause a player
+        # issue a play command
+        if self.init() == False:
+            return False
+        self.player.Play( dbus_interface = self.dbus_interface_name )
     def stop( self ):
         if self.init() == False:
             return False

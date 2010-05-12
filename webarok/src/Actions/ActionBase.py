@@ -34,7 +34,7 @@ class ActionBase( object ):
         pass
 
 class PlayerActionBase( ActionBase ):
-
+    
     if Configuration.Configuration().player == "vlc":
         from Backend.VlcPlayer import VlcPlayer
         player = VlcPlayer()
@@ -44,6 +44,14 @@ class PlayerActionBase( ActionBase ):
     else: # amarok is default player
         from Backend.AmarokPlayer import AmarokPlayer
         player = AmarokPlayer()
+        
+    def __init__(self):
+        # just testing... 
+        from Backend.BaseDbusPlayer import BaseDbusPlayer
+        try:
+            self.player = BaseDbusPlayer('test')
+        except:
+            pass
         
     def bla( self, param ):
         return

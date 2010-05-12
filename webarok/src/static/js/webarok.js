@@ -37,7 +37,8 @@ function repaintPlayerStatus( data )
 	{
 		case 'stopped':
 			$('control_stop').style.display = 'none';
-			$('control_pause').style.display = '';
+			$('control_pause').style.display = 'none';
+			$('control_unpause').style.display = 'none';
 			$('control_play').style.display = '';
 			toggleRefreshProgress( false );
 			toggleRefreshCurrentSong( false );
@@ -47,14 +48,17 @@ function repaintPlayerStatus( data )
 			// VLC expects a pause in paused mode
 			// Amarok expects a play in paused mode
 			//$('control_pause').style.display = 'none';
-			$('control_pause').style.display = '';
-			$('control_play').style.display = '';
+			$('control_stop').style.display = '';
+			$('control_pause').style.display = 'none';
+			$('control_unpause').style.display = '';
+			$('control_play').style.display = 'none';
 			toggleRefreshProgress( false );
 			toggleRefreshCurrentSong( false );
 			break;
 		case 'playing':
 			$('control_stop').style.display = '';
 			$('control_pause').style.display = '';
+			$('control_unpause').style.display = 'none';
 			$('control_play').style.display = 'none';
 			if ( $('check_refresh_progress').checked ) {
 				toggleRefreshProgress( true );

@@ -36,6 +36,13 @@ class Pause( ActionBase.PlayerActionBase ):
             return False
         ActionBase.PlayerActionBase.player.pause()
         return True
+    
+class Unpause( ActionBase.PlayerActionBase ):
+    def do(self, param):
+        if ActionBase.PlayerActionBase.player.isInitialized() == False:
+            return False
+        ActionBase.PlayerActionBase.player.unpause()
+        return True
 
 
 class Play( ActionBase.PlayerActionBase ):
