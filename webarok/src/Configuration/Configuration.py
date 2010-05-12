@@ -23,7 +23,6 @@ along with Webarok.  If not, see <http://www.gnu.org/licenses/>.
 class Configuration( object ):
     def __init__( self ):
         self.artfolder = "/home/***PLEASE CHANGE THIS***/.kde/share/apps/amarok/albumcovers/"
-        #self.artfolder = "/home/verena/.kde/share/apps/amarok/albumcovers/"
         self.staticTheme = "default"
         
         # check if mysql module is available
@@ -33,12 +32,11 @@ class Configuration( object ):
             self.useCollection = True
             self.mySqlOpts = {
               'host': "localhost",
-              'user': "amarokuser",
-              'pass': "amarok",
-              'db':   "amarokdb"
+              'user': "***PLEASE CHANGE THIS***",
+              'pass': "***PLEASE CHANGE THIS***",
+              'db':   "***PLEASE CHANGE THIS***"
             } 
         except:
-            print "no collection"
             self.useCollection = False
          
         # type of player  
