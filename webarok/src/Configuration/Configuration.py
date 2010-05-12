@@ -30,14 +30,12 @@ class Configuration( object ):
         # only used in context with Amarok as player 
         try:
             import MySQLdb
-            
             self.useCollection = True
-            self.mySqlOpts = {
-              'host': "localhost",
-              'user': "amarokuser",
-              'pass': "amarok",
-              'db':   "amarokdb"
-            } 
+            self.mysql_host = "localhost"
+            self.mysql_user = "amarokuser"
+            self.mysql_pass = "amarok"
+            self.mysql_db   = "amarokdb"
+#            } 
         except:
             self.useCollection = False
          

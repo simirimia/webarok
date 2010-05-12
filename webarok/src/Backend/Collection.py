@@ -20,20 +20,19 @@ You should have received a copy of the GNU General Public License
 along with Webarok.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-from MyDbus import MyDbus
-#from MyMySql import MyMySql
-import MySQLdb
-from dbus.exceptions import DBusException
 import urllib
+import MySQLdb
+from MyDbus import MyDbus
+from dbus.exceptions import DBusException
+from Configuration.Configuration import Configuration
 
 class Collection( MyDbus ):
 
     def __init__( self ):
-        MyDbus.__init__( self, "org.kde.amarok" )       
-        #db = MySQLdb.connect(passwd='amarok',db='amarokdb',user='amarokuser')
-        mysql = MySQLdb.connect(passwd='amarok',db='amarokdb',user='amarokuser')
+        MyDbus.__init__( self, "org.kde.amarok" )
+        c = Configuration()
+        mysql = MySQLdb.connect(passwd=c.mysql_pass,db=c.mysql_db,user=c.mysql_user,host=c.mysql_host)
         self.db = mysql.cursor()
-        #self.db = MyMySql()
         self.init()
         return
     
