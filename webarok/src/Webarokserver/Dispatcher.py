@@ -50,8 +50,6 @@ class Dispatcher( DispatcherBase ):
         return
 
     def dispatch( self ):
-        #print "Dispatching: " + self.path
-
         if self.path.startswith( "/action/" ):
             d = DynamicDispatcher()
         elif self.path.startswith( "/index" ) or self.path == "" or self.path == "/":
@@ -78,7 +76,6 @@ class StaticDispatcher( DispatcherBase ):
                 filename = curdir + "/static/" + self.path
             else:
                 filename = curdir + "/static/" + self.path
-            #print "static dispatcher: " + filename
 
             f = open( filename )
             self.out = f.read()
@@ -96,12 +93,9 @@ class StaticDispatcher( DispatcherBase ):
 class MainDispatcher( StaticDispatcher ):
 
     def dispatch( self ):
-        print "main dispatcher"
         theme_pos = self.path.find( "theme=" )
         if theme_pos > 0:
-            #print "Theme found at: " + theme_pos.__str__()
             theme = self.path[theme_pos + 6:]
-            #print "New theme: " + theme
             self.config.staticTheme = theme
         self.path = self.config.staticTheme + "/index.html"
         StaticDispatcher.dispatch( self )
