@@ -1,4 +1,4 @@
-var theme = 'default';
+var theme = 'oldschool';
 
 var playlist_item_template_html = "<tr id=\"playlist_item_#{tracklistindex}\"  class=\"playlist_item #{row_class_addon}\"><td><img onclick=\"play_from_list(#{tracklistindex})\" class=\"action\" src=\"" 
 									+ theme + "/images/playlist_play.png\" /><img onclick=\"delete_from_list(#{tracklistindex})\" class=\"action\" src=\""
