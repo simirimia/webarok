@@ -21,7 +21,6 @@ along with Webarok.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import MyDbus
-import Backend
 from MediaObjects import Song
 from MediaObjects import Volume
 from MediaObjects.PlayerStatus import PlayerStatus
@@ -64,7 +63,6 @@ class BaseDbusPlayer( MyDbus.MyDbus ):
         self.player.Pause( dbus_interface = self.dbus_interface_name )
         return True
     def unpause( self ):
-        print "unpause in basedbusplayer"
         # by default, to unpause a player
         # issue a play command
         if self.init() == False:
@@ -79,6 +77,11 @@ class BaseDbusPlayer( MyDbus.MyDbus ):
         if self.init() == False:
             return False
         self.player.Next( dbus_interface = self.dbus_interface_name )
+        return True
+    def seek( self, time ):
+        if self.init() == False:
+            return False
+        self.player.PositionSet( time, dbus_interface = 'org.freedesktop.MediaPlayer' )
         return True
 
 
