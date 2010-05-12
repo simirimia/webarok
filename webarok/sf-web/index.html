@@ -17,11 +17,14 @@ Sourceforge.net project site:
 ================
 
 You need to have installed
-1. Amarok 2 (tested with 2.1 and 2.2 beta)
+1. Amarok 2 (tested with 2.1 to 2.3)
 2. Python (tested with version 2.6)
 3. Python dbus bindings (package python-dbus on kubuntu)
 4. A webbrowser
-
+optional:
+5. Python mysql bindings (package python-mysqldb on kubuntu)
+   --&gt; to search a Amarok collection using a standalone MySQL server
+6. Instead of Amarok, use VLC
 
 1. Installation
 ===============
@@ -86,25 +89,64 @@ this interface.  Have fun with it now :)
 To load a specific theme, enter the URL
 http://&lt;&lt;$YOUR_IP&gt;&gt;:8085/index?theme=&lt;&lt;$THEME_NAME&gt;&gt;
 
-Up to now, 3 themes exist:
-http://&lt;&lt;$YOUR_IP&gt;&gt;:8085/index?theme=default
---&gt; the default theme
+Up to now, 4 themes exist:
+http://&lt;&lt;$YOUR_IP&gt;&gt;:8085/index?theme=phone
+--&gt; the new tabbed default theme
+--&gt; uses a tab view to separate current song and controls, playlist, lyrics, collection search and settings,
+--&gt; uses also a smaller font to save screen estate
+--&gt; UI similar to KDE4
+--&gt; see explore_phone_theme.jpg for more details
+
+http://&lt;&lt;$YOUR_IP&gt;&gt;:8085/index?theme=oldshool
+--&gt; the old default theme
 
 http://&lt;&lt;$YOUR_IP&gt;&gt;:8085/index?theme=transparent
---&gt; same as default, but with transparent background, looks nice in webbrowser plasmoids
+--&gt; same as oldshool, but with transparent background, looks nice in webbrowser plasmoids
 
 http://&lt;&lt;$YOUR_IP&gt;&gt;:8085/index?theme=netbook
 --&gt; uses a tab view to separate current song and controls, playlist and settings,
 --&gt; uses also a smaller font to save screen estate
 
 
-5. Troubleshooting
+5. Searching the Amarok collection
+==================================
+Searching the Amarok collection only works if a separate standalone MySQL server is used. webarok directly queries the database and does not use Amarok at all.
+The python-mysql bindings have to be installed. Only the phone theme supports this feature for now.
+Pres on the + button in the result list to add this track to the end of the playlist
+Doubleclick on an entry in the result list to add this track to the playlist and play this song immediatly.
+
+To enable collection search, edit Configuration/Configuration.py:
+Change self.mySqlOpts to match your settings.
+
+If you won't use MySql you may set self.useCollection to False to avoid MySql-Errors.
+
+
+6. Using VLC
+============
+webarok is no longer tied to Amarok. With the current release, VLC support is added. VLC support is in a early stage.
+Searching the media library is not supported at all, as well as album covers. Basic controls and playlist actions should work in the same way as with Amarok.
+
+VLC needs to be started with "vlc --control dbus", otherwise dbus support is not activated.
+
+
+7. Troubleshooting
 ==================
 
 Visit <a href="http://sourceforge.net/projects/webarok">http://sourceforge.net/projects/webarok/</a> and check forums or mailing lists
 
-6.  Changelog
+
+8.  Changelog
 =============
+
+Rxx:
+----
+- new default theme: phone
+- seek funcionality: click somewhere on the progressbar to jump to any position within the current track.
+                     support only in the new default theme
+- search funcionality: search Amarok collection if stored in a standalone MySQL server
+- lyrics
+- VLC support
+
 
 R22:
 ----
@@ -119,11 +161,21 @@ R18:
 - Amarok gets muted while stepping through the playlist
 - Refresh rates are customizable
 
-7. CREDITS
+
+9. ToDo / Roadmap
+=================
+- optional basic authentication interface
+- better VLC support
+- using /Collection dbus interface for searching the collection
+- XBMC support
+- mplayer support
+
+10. CREDITS
 ===========
 
-Patches:
+Patches/enhancements:
 khaytsus (default/transparent theme)
+<a href="http://www.orakeldel.net">orakeldel</a> (phone theme, MySQL collection support, seek funcionality)
 
 Libraries:
 Prototype Javascript library: <a href="http://www.prototypejs.org">http://www.prototypejs.org</a>
@@ -132,9 +184,6 @@ Scriptaculous Javascript effects library: <a href="http://script.aculo.us">http:
 
 Icons:
 Dark Glass icon set: <a href="http://kde-look.org/content/show.php/DarkGlass_Reworked?content=67902">http://kde-look.org/content/show.php/DarkGlass_Reworked?content=67902</a>
-
-Progressbar pictures:
-Relay: <a href="http://ecosmear.com/relay">http://ecosmear.com/relay</a>
 
 Python
 <a href="http://www.python.org">http://www.python.org</a>
@@ -149,6 +198,11 @@ And of course all the basic stuff:
 
 And Sourceforge for hosting this project:
 <a href="http://www.sourceforge.net">http://www.sourceforge.net</a>
+
+In older version, but removed now:
+Progressbar pictures:
+Relay: <a href="http://ecosmear.com/relay">http://ecosmear.com/relay</a>
+
 </pre>
 </body>
 </html>
