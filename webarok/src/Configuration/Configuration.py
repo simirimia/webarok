@@ -31,12 +31,14 @@ class Configuration( object ):
         try:
             import MySQLdb
             self.useCollection = True
-            self.mysql_host = "localhost"
-            self.mysql_user = "amarokuser"
-            self.mysql_pass = "amarok"
-            self.mysql_db   = "amarokdb"
-#            } 
+            self.mySqlOpts = {
+              'host': "localhost",
+              'user': "amarokuser",
+              'pass': "amarok",
+              'db':   "amarokdb"
+            } 
         except:
+            print "no collection"
             self.useCollection = False
          
         # type of player  
