@@ -22,8 +22,8 @@ along with Webarok.  If not, see <http://www.gnu.org/licenses/>.
 
 class Configuration( object ):
     def __init__( self ):
-        self.artfolder = "/home/***PLEASE CHANGE THIS***/.kde/share/apps/amarok/albumcovers/"
-        self.staticTheme = "default"
+        #self.artfolder = "/home/***PLEASE CHANGE THIS***/.kde/share/apps/amarok/albumcovers/"
+        self.staticTheme = "phone"
         
         # check if mysql module is available
         # only used in context with Amarok as player 
@@ -37,6 +37,7 @@ class Configuration( object ):
               'db':   "***PLEASE CHANGE THIS***"
             } 
         except:
+            print "python-mysql seems not to be available. Collection support disabled."
             self.useCollection = False
          
         # type of player  
