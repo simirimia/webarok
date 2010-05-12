@@ -29,8 +29,8 @@ class Configuration( object ):
         # check if mysql module is available
         # only used in context with Amarok as player 
         try:
-            from MyMySql import MyMySql
-        
+            import MySQLdb
+            
             self.useCollection = True
             self.mySqlOpts = {
               'host': "localhost",

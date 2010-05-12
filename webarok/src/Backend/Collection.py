@@ -21,15 +21,19 @@ along with Webarok.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 from MyDbus import MyDbus
-from MyMySql import MyMySql
+#from MyMySql import MyMySql
+import MySQLdb
 from dbus.exceptions import DBusException
 import urllib
 
 class Collection( MyDbus ):
 
     def __init__( self ):
-        MyDbus.__init__( self, "org.kde.amarok" )        
-        self.db = MyMySql()
+        MyDbus.__init__( self, "org.kde.amarok" )       
+        #db = MySQLdb.connect(passwd='amarok',db='amarokdb',user='amarokuser')
+        mysql = MySQLdb.connect(passwd='amarok',db='amarokdb',user='amarokuser')
+        self.db = mysql.cursor()
+        #self.db = MyMySql()
         self.init()
         return
     
@@ -43,20 +47,20 @@ class Collection( MyDbus ):
 
     def searchTitle( self, keyword ):
         keyword = self.prepareKeyword( keyword )
-        self.db.cursor.execute("SELECT `tracks`.`url`, `artists`.`name`, `albums`.`name`, `tracks`.`title` \
+        self.db.execute("SELECT `tracks`.`url`, `artists`.`name`, `albums`.`name`, `tracks`.`title` \
                                 FROM `tracks`, `artists`, `albums` \
                                 WHERE `tracks`.`artist` = `artists`.`id` AND `tracks`.`album` = `albums`.`id` \
                                 AND LOWER(`tracks`.`title`) LIKE LOWER('"+keyword+"') ORDER BY `artists`.`name`, `albums`.`name`, `tracks`.`title`")
-        songs = self.db.cursor.fetchall() 
+        songs = self.db.fetchall() 
         return songs
 
     def searchArtist( self, keyword ):
         keyword = self.prepareKeyword( keyword )
-        self.db.cursor.execute("SELECT `tracks`.`url`, `artists`.`name`, `albums`.`name`, `tracks`.`title` \
+        self.db.execute("SELECT `tracks`.`url`, `artists`.`name`, `albums`.`name`, `tracks`.`title` \
                                 FROM `tracks`, `artists`, `albums` \
                                 WHERE `tracks`.`artist` = `artists`.`id` AND `tracks`.`album` = `albums`.`id` \
                                 AND LOWER(`artists`.`name`) LIKE LOWER('"+keyword+"') ORDER BY `artists`.`name`, `albums`.`name`, `tracks`.`title`")
-        songs = self.db.cursor.fetchall() 
+        songs = self.db.fetchall() 
         return songs
 
     """
@@ -65,20 +69,20 @@ class Collection( MyDbus ):
     def searchAll( self, keyword ):
         keyword = self.prepareKeyword( keyword )
         #print "DEBUG: " + keyword
-        self.db.cursor.execute("SELECT `tracks`.`url`, `artists`.`name`, `albums`.`name`, `tracks`.`title` \
+        self.db.execute("SELECT `tracks`.`url`, `artists`.`name`, `albums`.`name`, `tracks`.`title` \
                                 FROM `tracks`, `artists`, `albums` \
                                 WHERE `tracks`.`artist` = `artists`.`id` AND `tracks`.`album` = `albums`.`id` \
                                 AND (LOWER(`tracks`.`title`) LIKE LOWER('"+keyword+"') \
                                 OR LOWER(`artists`.`name`) LIKE LOWER('"+keyword+"') \
                                 OR LOWER(`albums`.`name`) LIKE LOWER('"+keyword+"')) ORDER BY `artists`.`name`, `albums`.`name`, `tracks`.`title`")
-        songs = self.db.cursor.fetchall() 
+        songs = self.db.fetchall() 
         return songs
     
     def trackToPlayList( self, trackUrl, play):
         if self.init() == False:
             return False
-        self.db.cursor.execute("SELECT `urls`.`rpath` FROM `urls` WHERE `urls`.`id` = "+str(trackUrl))
-        url = self.db.cursor.fetchone()
+        self.db.execute("SELECT `urls`.`rpath` FROM `urls` WHERE `urls`.`id` = "+str(trackUrl))
+        url = self.db.fetchone()
         #print "DEBUG: URL: "+str(url[0][1:]);
         self.tracklist.AddTrack( str(url[0][1:]), play, dbus_interface = 'org.freedesktop.MediaPlayer' )
         return

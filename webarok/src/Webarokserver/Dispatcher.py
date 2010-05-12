@@ -142,11 +142,11 @@ class DynamicDispatcher( DispatcherBase ):
             t.append( "" )
 
 
-        #try:
-        action.do( t[base + 2] )
-        self.out = action.out
-        self.status = 200
-        #except:
-        #    self.status = 500
+        try:
+            action.do( t[base + 2] )
+            self.out = action.out
+            self.status = 200
+        except:
+            self.status = 500
         return
 
