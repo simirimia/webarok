@@ -20,10 +20,10 @@
 
   <ul id="tab_group">
 	<li class="tab" style="position:relative;width:1px;">&nbsp;</li>
-	<li class="tab"><a class="active" id="tab_main" href="#main_tab">Main</a></li>
-	<li class="tab"><a class=""       id="tab_playlist" href="#playlist_tab">Playlist</a></li>
-	<li class="tab"><a class=""        id="tab_lyrics" href="#lyrics_tab">Lyrics</a></li>
-	<li class="tab"><a class=""        id="tab_search" href="#search_tab">Search</a></li>
+	<li class="tab"><a class="active" id="tab_main" href="#main_tab"><span id="trans_main">Main</span></a></li>
+	<li class="tab"><a class=""       id="tab_playlist" href="#playlist_tab"><span id="trans_playlist">Playlist</span></a></li>
+	<li class="tab"><a class=""        id="tab_lyrics" href="#lyrics_tab"><span id="trans_lyrics">Lyrics</span></a></li>
+	<li class="tab"><a class=""        id="tab_search" href="#search_tab"><span id="trans_search">Search</span></a></li>
 	<li class="tab"><a class=""        href="#settings_tab"><span id="tab_settings">&nbsp;</span></a></li>
   </ul>
   
@@ -50,7 +50,7 @@
 			</span>
 		<!--</div>-->
 		
-		<div style="display:none;">Status: <span id="status">Loading...</span></div>
+		<div style="display:none;"><span id="trans_status">Status</span>: <span id="status"><span id="trans_loading">Loading</span>...</span></div>
 		
 		<div id="current_song" onclick="javascript: refreshCurrentSong( 1 );refreshPlayerStatus();refreshVolume();" style="width:300px;text-align:center;">
 			<table align="center" style="">
@@ -64,16 +64,16 @@
 			  <div style="height:150px;overflow:auto;width:300px;">
 			<table>
 				<tr>
-					<td class="description" valign="top">Title: </td><td id="title" class="value">Loading...</td>
+					<td class="description" valign="top"><span id="trans_track">Title</span>: </td><td id="title" class="value"><span id="trans_loading">Loading</span>...</td>
 				</tr>
 				<tr>
-					<td class="description" valign="top">Artist: </td><td id="artist" class="value">Loading...</td>
+					<td class="description" valign="top"><span id="trans_artist">Artist</span>: </td><td id="artist" class="value"><span id="trans_loading">Loading</span>...</td>
 				</tr>
 				<tr>
-					<td class="description" valign="top">Album: </td><td id="album" class="value">Loading...</td>
+					<td class="description" valign="top"><span id="trans_album">Album</span>: </td><td id="album" class="value"><span id="trans_loading">Loading</span>...</td>
 				</tr>
 				<tr>
-					<td class="description" valign="top">Duration: </td><td><span class="value"><span id="duration_min">0</span>:<span id="duration_sec">00</span></span></td>
+					<td class="description" valign="top"><span id="trans_duration">Duration</span>: </td><td><span class="value"><span id="duration_min">0</span>:<span id="duration_sec">00</span></span></td>
 				</tr>
 			</table>
 			</div>
@@ -81,28 +81,28 @@
 	</div>	
 	</div>
 	<div id="settings_tab" style="">
-	<div style="font-size:11pt;"><b>Settings:</b></div>
+	<div style="font-size:11pt;"><b><span id="trans_settings">Settings</span>:</b></div>
 	<div style="padding-left:10px;padding-top:5px;">
-		<input type="button" onClick="refreshVolume();refreshCurrentSong();refreshPlayerStatus();refreshPlaylist()" value="Refresh data" /><br />
-		<div><b>Autorefresh options:</b></div>
+		<input type="button" onClick="refreshVolume();refreshCurrentSong();refreshPlayerStatus();refreshPlaylist()" value="Refresh data" id="refresh_data_button" /><br />
+		<div><b><span id="trans_opt_autorefresh">Autorefresh options</span>:</b></div>
 		<div>
-			<input id="check_refresh_volume" type="checkbox" checked="checked" value="1" onChange="toggleRefreshVolume( this.checked )" /> Autorefresh volume every
+			<input id="check_refresh_volume" type="checkbox" checked="checked" value="1" onChange="toggleRefreshVolume( this.checked )" /> <span id="trans_autorefresh_volume">Autorefresh volume every</span>
 			<input type="text" size="3" value="10" id="refresh_rate_volume" onKeyUp='if ( $("check_refresh_volume").checked ) startRefreshingVolume()' />s
 		</div> 
 		<div>
-			<input id="check_refresh_song" type="checkbox" checked="checked" value="1" onChange="toggleRefreshCurrentSong( this.checked )" /> Autorefresh progressbar every 
+			<input id="check_refresh_song" type="checkbox" checked="checked" value="1" onChange="toggleRefreshCurrentSong( this.checked )" /> <span id="trans_autorefresh_progress">Autorefresh progressbar every</span> 
 			<input type="text" size="3" value="10" id="refresh_rate_song" onKeyUp='if ( $("check_refresh_song").checked ) startRefreshingCurrentSong()' />s
 		</div>
 		<div>
-			<input id="check_refresh_playerstatus" type="checkbox" checked="checked" value="1" onChange="toggleRefreshPlayerStatus( this.checked )" /> Autorefresh status every
+			<input id="check_refresh_playerstatus" type="checkbox" checked="checked" value="1" onChange="toggleRefreshPlayerStatus( this.checked )" /> <span id="trans_autorefresh_status">Autorefresh status every</span>
 			<input type="text" size="3" value="10" id="refresh_rate_playerstatus" onKeyUp='if ( $("check_refresh_playerstatus").checked ) startRefreshingPlayerStatus()'/>s
 		</div>
 		<div>
-			<input id="check_refresh_playlist" type="checkbox" checked="checked" value="1" onChange="toggleRefreshPlaylist( this.checked )" /> Autorefresh playlist every
+			<input id="check_refresh_playlist" type="checkbox" checked="checked" value="1" onChange="toggleRefreshPlaylist( this.checked )" /> <span id="trans_autorefresh_playlist">Autorefresh playlist every</span>
 			<input type="text" size="3" value="300" id="refresh_rate_playlist" onKeyUp='if ( $("check_refresh_playlist").checked ) startRefreshingPlaylist()'/>s
 		</div>
 	</div>	<br /><br />
-	<div style="font-size:11pt;"><b>About:</b></div>
+	<div style="font-size:11pt;"><b><span id="trans_about">About</span>:</b></div>
 	<div style="padding-left:10px;padding-top:5px;">
 		<a href="http://sourceforge.net/projects/webarok/">(c) webarok project</a><br />Webarok is free software. (GPLv3)<br />
 		<b>Autors:</b><br />
@@ -137,7 +137,7 @@
 			<img src="netbook/images/spinner_blue.gif" />
 		</div>
 		<div id="playlist" style="">
-			The Playlist....
+			<span id="trans_the_playlist">The Playlist</span>....
 		</div>
 	</div>
 	
@@ -145,15 +145,15 @@
 		<div id="searchbuttons">
 			<input type="text" id="searchterm" size="10" onkeydown="if(event.keyCode=='13') collectionSearchAll();" />
 			<select size="1" id="searchtags">
-			  <option value="Title">Titles</option>
-			  <option value="Artist">Artists</option>
-			  <option value="All">All</option>
+			  <option value="Title" id="trans_tracks">Titles</option>
+			  <option value="Artist" id="trans_artists">Artists</option>
+			  <option value="All" id="trans_all">All</option>
 			</select>
-			<input type="button" onclick="collectionSearchAll()" value="Search" />
+			<input type="button" onclick="collectionSearchAll()" value="Search" id="button_search" />
 		</div>
 		<div id="searchresults" style="">
-			No Resuts...<br /><br />
-			Search only works with Amarok and enabled external MySQL server.
+			<span id="trans_no_result">No Resuts</span>...<br /><br />
+			<span id="trans_search_with_mysql">Search only works with Amarok and enabled external MySQL server.</span>
 		</div>
 	</div>
 	
@@ -172,6 +172,7 @@
 		});*/  
 		
 		// init data
+		refreshTranslation()
 		refreshPlayerStatus();
 		refreshCurrentSong();
 		refreshVolume();

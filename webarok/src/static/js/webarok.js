@@ -1,7 +1,8 @@
 var song_length = 0;
 var song_position = 0;
 
- 
+ // translation stuff
+var trans_no_lyrics = "No Lyrics found. (Click to refresh)";
 
 //******* Start: Player status handling
 var player_status_refresher;
@@ -114,7 +115,7 @@ function repaintCurrentSong( data )
 	if (data['lyrics']!=""){
 	data['lyrics'] = nl2br(data['lyrics']);
 	}else{
-	data['lyrics'] = "No Lyrics found. (Click to refresh)"
+	data['lyrics'] = trans_no_lyrics
 	}
 	song_length = data['mtime'];
 	song_position = data['position'];
@@ -443,3 +444,22 @@ function seek(e) {
 	refreshCurrentSong();
 }
 //******* End: Seek handling
+
+
+
+//******* Start: Translation handling
+function refreshTranslation()
+{
+	callWebarokWithReturn( 'Translation', 'initTranslation' );
+}
+
+function initTranslation( data )
+{
+	repaint( data );
+	// special translations
+	$('button_search').value = data['trans_search_button'];
+	$('refresh_data_button').value = data['trans_refresh_data_button'];
+	trans_no_lyrics = data['trans_no_lyrics'];
+}
+
+//******* End: Translation handling

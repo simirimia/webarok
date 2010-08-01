@@ -35,6 +35,7 @@ from Actions.Collection import CollectionSearchTitle
 from Actions.Collection import CollectionSearchAll
 from Actions.Collection import CollectionPutElementInTrackList
 from Actions.Collection import CollectionPlayElement
+from Actions.Translation import Translation
 from Configuration import Configuration
 
 class Factory( object ):
@@ -65,6 +66,7 @@ class Factory( object ):
         self.searchall = ""
         self.searchplayelement = ""
         self.searchputelementtotracklist = ""
+        self.translation = ""
         return
 
     def get( self, name ):
@@ -179,5 +181,8 @@ class Factory( object ):
             if self.volumemute == "":
                 self.volumemute = Volume.VolumeMute()
             return self.volumemute
-
+        if name == "Translation":
+            if self.translation == "":
+                self.translation = Translation()
+            return self.translation
         return
