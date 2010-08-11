@@ -28,7 +28,7 @@ class Configuration( object ):
         self.staticTheme = "phone"
         
         # which language
-        self.language = 'de'
+        self.language = 'en'
         
         # check if mysql module is available
         # only used in context with Amarok as player 

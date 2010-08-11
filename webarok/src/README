@@ -112,7 +112,17 @@ Change self.mySqlOpts to match your settings.
 If you won't use MySql you may set self.useCollection to False to avoid MySql-Errors.
 
 
-6. Using VLC
+6. Translation
+==============
+webarok comes with translation support. Open the file Configuration/Configuration.py
+and edit the line: 
+
+self.language = 'en'
+
+Possible values for now are 'en' for English and 'de' for German.
+
+
+7. Using VLC
 ============
 webarok is no longer tied to Amarok. With the current release, VLC support is added. VLC support is in a early stage.
 Searching the media library is not supported at all, as well as album covers. Basic controls and playlist actions should work in the same way as with Amarok.
@@ -120,14 +130,21 @@ Searching the media library is not supported at all, as well as album covers. Ba
 VLC needs to be started with "vlc --control dbus", otherwise dbus support is not activated.
 
 
-7. Troubleshooting
+8. Troubleshooting
 ==================
 
 Visit http://sourceforge.net/projects/webarok/ and check forums or mailing lists
 
 
-8.  Changelog
+9.  Changelog
 =============
+
+R48:
+----
+- translation support: 
+  included translations:
+    - English
+    - German
 
 R47:
 ----
