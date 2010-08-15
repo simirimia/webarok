@@ -54,7 +54,8 @@ to match the folder with your setup
 Make sure Amarok is already running. Open a terminal and enter:
 
 cd <<Path/to/Webarok>>
-python webarok.py
+./webarok
+
 
 If everything is OK, there should be some output like:
 
@@ -119,7 +120,8 @@ and edit the line:
 
 self.language = 'en'
 
-Possible values for now are 'en' for English and 'de' for German.
+Possible values for now are 'en' for English, 'de' for German, 'cs' for
+Czech.
 
 
 7. Using VLC
@@ -138,6 +140,10 @@ Visit http://sourceforge.net/projects/webarok/ and check forums or mailing lists
 
 9.  Changelog
 =============
+
+R51:
+----
+- czech translation
 
 R48:
 ----
@@ -181,9 +187,10 @@ R18:
 10. CREDITS
 ===========
 
-Patches/enhancements:
+Patches/enhancements/translations:
 khaytsus (default/transparent theme)
 orakeldel (phone theme, MySQL collection support, seek funcionality)
+fri (czech translation)
 
 Libraries:
 Prototype Javascript library: http://www.prototypejs.org
@@ -211,6 +218,3 @@ In older version, but removed now:
 Progressbar pictures:
 Relay: <a href="http://ecosmear.com/relay">http://ecosmear.com/relay</a>
 
-</pre>
-</body>
-</html>
