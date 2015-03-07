@@ -1,0 +1,142 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+	<title>Webarok - The Amarok Web remote control</title>
+	<link rel="stylesheet" href="oldschool/default.css" type="text/css" />	
+	<link rel="stylesheet" href="netbook/netbook.css" type="text/css" />
+	<script type="text/javascript" src="js/prototype.js"></script>
+
+	<script type="text/javascript" src="js/prototype.js"></script>
+	<script type="text/javascript" src="js/livepipe.js"></script>
+	<script type="text/javascript" src="js/progressbar.js"></script>
+	<script type="text/javascript" src="js/tabs.js"></script>
+
+	<script type="text/javascript" src="netbook/theme.js"></script>
+	<script type="text/javascript" src="js/webarok.js"></script>
+</head>
+
+<body>
+
+  <ul id="tab_group">
+	<li class="tab"><a class="active" href="#main_tab">Main</a></li>
+	<li class="tab"><a class=""       href="#playlist_tab">Playlist</a></li>
+	<li class="tab"><a class=""       href="#settings_tab">Settings</a></li>
+  </ul>
+  
+	<div id="main_tab" style="">
+		<div class="controls" id="controls">
+			<span id="control_previous" onClick="callWebarok( 'Previous', doAfterPlayerAction )"><img class="action" src="netbook/images/player_start.png" alt="BACK" /></span>
+			<span id="control_pause" onClick="callWebarok( 'Pause', doAfterPlayerAction )"><img class="action" src="netbook/images/player_pause.png" alt="PAUSE" /></span>
+			<span id="control_play" onClick="callWebarok( 'Play', doAfterPlayerAction )"><img class="action" src="netbook/images/player_play.png" alt="PLAY" /></span>
+			<span id="control_unpause" onClick="callWebarok( 'Unpause', doAfterPlayerAction )"><img class="action" src="netbook/images/player_play.png" alt="PLAY/UNPAUSE" /></span>
+			<span id="control_stop" onClick="callWebarok( 'Stop', doAfterPlayerAction )"><img class="action" src="netbook/images/player_stop.png" alt="STOP" /></span>
+			<span id="control_next" onClick="callWebarok( 'Next', doAfterPlayerAction )"><img class="action" src="netbook/images/player_end.png" alt="NEXT" /></span>
+			<span onClick="callWebarok( 'VolumeDown', refreshVolume )"><img class="action" src="netbook/images/down.png" alt="VOLUME DOWN" /></span>
+			<span id="volume">Volume...</span> %
+			<span onClick="callWebarok( 'VolumeUp', refreshVolume )"><img class="action" src="netbook/images/up.png" alt="VOLUME UP" /></span>
+		</div>
+		
+		<div>Status: <span id="status">foo</span></div>
+		
+		<div id="current_song" onclick="javascript: refreshCurrentSong();refreshPlayerStatus();refreshVolume();">
+			<table>
+				<tr>
+					<td colspan="2" rowspan="5" >  
+						<img id="albumart" height="100px" width="100px" src=""/>
+					</td>
+				</tr>
+				<tr>
+					<td class="description">Title: </td><td id="title" class="value">&nbsp;</td>
+				<tr>
+					<td class="description">Artist: </td><td id="artist" class="value">&nbsp;</td>
+				</tr>
+				<tr>
+					<td class="description">Album: </td><td id="album" class="value">&nbsp;</td>
+				</tr>
+				<tr>
+					<td class="description">Duration: </td><td><span class="value"><span id="duration_min">&nbsp;</span>:<span id="duration_sec">&nbsp;</span></span></td>
+				</tr>
+			</table>
+		</div>
+		
+		<div id="current_position">
+			Current position: <span id="position_min">&nbsp;</span>:<span id="position_sec" class="value">&nbsp;</span>
+			<div id="progressbar"></div>
+		</div>
+	</div>	
+	<div id="settings_tab" style="">
+	<div>
+		Manuall Refresh:&nbsp;
+		<span class="manual_refresh" onClick="refreshVolume()">VOLUME</span>&nbsp;
+		<span class="manual_refresh" onClick="refreshCurrentSong()">SONG</span>&nbsp;
+		<span class="manual_refresh" onClick="refreshPlayerStatus()">STATUS</span>&nbsp;
+		<span class="manual_refresh" onClick="refreshPlaylist()">PLAYLIST</span>&nbsp;
+	</div>
+	
+	<div>
+		<div>Automatic refresh settings:</div>
+		<div>
+			<input id="check_refresh_volume" type="checkbox" value="1" onChange="toggleRefreshVolume( this.checked )" /> Autorefresh volume every
+			<input type="text" size="3" value="60" id="refresh_rate_volume" onKeyUp='if ( $("check_refresh_volume").checked ) startRefreshingVolume()' />s
+		</div> 
+		<div>
+			<input id="check_refresh_song" type="checkbox" value="1" onChange="toggleRefreshCurrentSong( this.checked )" /> Autorefresh song every 
+			<input type="text" size="3" value="5" id="refresh_rate_song" onKeyUp='if ( $("check_refresh_song").checked ) startRefreshingCurrentSong()' />s
+		</div>
+		<div>
+			<input id="check_refresh_playerstatus" type="checkbox" value="1" onChange="toggleRefreshPlayerStatus( this.checked )" /> Autorefresh status every
+			<input type="text" size="3" value="10" id="refresh_rate_playerstatus" onKeyUp='if ( $("check_refresh_playerstatus").checked ) startRefreshingPlayerStatus()'/>s
+		</div>
+		<div>
+			<input id="check_refresh_playlist" type="checkbox" checked="checked" value="1" onChange="toggleRefreshPlaylist( this.checked )" /> Autorefresh playlist every
+			<input type="text" size="3" value="300" id="refresh_rate_playlist" onKeyUp='if ( $("check_refresh_playlist").checked ) startRefreshingPlaylist()'/>s
+		</div>
+	</div>
+	
+	<div>
+	  <div>Hint:</div>
+	  To do a complete manual refresh, click in the main tab on anywhere on the current track information
+	</div>
+	
+	</div>
+	
+	<div id="playlist_tab" style="display: none;">
+		<div id="playlist_spinner">
+			<img src="netbook/images/spinner_blue.gif" />
+		</div>
+		<div id="playlist">
+			The Playlist....
+		</div>
+	</div>
+	
+	
+  <div id="debug">&nbsp;</div>
+	
+	
+	<script type="text/javascript">
+		// init view
+		new Control.Tabs('tab_group');
+		var progress_bar = new Control.ProgressBar('progressbar',{  
+			   interval: 0.05  
+			}); 
+
+		/*$$('.main_tab').each(function(tab_group){  
+		  new Control.Tabs(tab_group);  
+		});*/  
+		
+		// init data
+		refreshPlayerStatus();
+		refreshCurrentSong();
+		refreshVolume();
+		refreshPlaylist();
+		
+		// disable automatic refresh
+		toggleRefreshPlayerStatus( 0 );
+		toggleRefreshCurrentSong( 0 );
+		toggleRefreshPlaylist( 0 );
+		toggleRefreshVolume( 0 );
+	</script>
+</body>
+
+</html>

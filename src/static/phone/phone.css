@@ -1,0 +1,214 @@
+
+#tab_group .active
+{
+  background-image: url('images/tab_selected.png');
+}
+
+#tab_group .active #tab_settings
+{
+  background-image: url('images/settingstab_selected.png');
+}
+
+li.tab
+{
+  display: inline;
+}
+
+li.tab a
+{
+  text-decoration: none;
+  font-size:10pt;
+  color:#000;
+  font-family:Sans serif;
+  font-weight:bold;
+}
+
+#tab_main{
+  position:absolute;
+  left:14px;
+  width:65px;
+  height:27px;
+  background-image: url('images/tab_unselected.png');
+  background-repeat:no-repeat;
+  z-index:500;
+  top:11px;
+  padding-left:5px;
+  padding-top:5px;
+}
+
+#tab_playlist{
+  position:absolute;
+  left:80px;
+  width:65px;
+  height:27px;
+  background-image: url('images/tab_unselected.png');
+  background-repeat:no-repeat;
+  z-index:500;
+  top:11px;
+  padding-left:5px;
+  padding-top:5px;
+}
+
+#tab_lyrics{
+  position:absolute;
+  left:146px;
+  width:65px;
+  height:27px;
+  background-image: url('images/tab_unselected.png');
+  background-repeat:no-repeat;
+  z-index:500;
+  top:11px;
+  padding-left:5px;
+  padding-top:5px;
+}
+
+#tab_search{
+  position:absolute;
+  left:212px;
+  width:65px;
+  height:27px;
+  background-image: url('images/tab_unselected.png');
+  background-repeat:no-repeat;
+  z-index:500;
+  top:11px;
+  padding-left:5px;
+  padding-top:5px;
+}
+
+#tab_settings{
+  position:absolute;
+  left:278px;
+  width:25px;
+  height:27px;
+  background-image: url('images/settingstab_unselected.png');
+  background-repeat:no-repeat;
+  z-index:500;
+  top:11px;
+  padding-left:5px;
+  padding-top:5px;
+}
+
+
+/* overrides */
+
+body
+{
+  font-size: 9pt;
+  background-color: #e3e2e1;
+  color:#000;
+}
+
+#playlist
+{
+  width: 100%;
+  overflow: visible;
+}
+
+td, th
+{
+  font-size: 9pt;
+  text-align:left;
+  vertical-align:top;
+}
+
+#progressbar{
+  width:280px;  
+  height:17px;  
+  background-image:url("images/prog_filled.png");  
+  background-repeat:repeat-x; 
+  text-align:center;
+  left:8px;
+  position:relative;
+  top:8px;
+}
+
+#progressbar div{
+  background-image:url("images/prog_blank.png");  
+  background-repeat:repeat-x;
+}
+
+.current_playlist_item{
+  background-color:#e0d5ca;
+}
+
+.artisttd{
+  width:132px;
+  word-wrap:break-word;
+}
+
+.titletd{
+  width:132px;
+  word-wrap:break-word;
+}
+
+.actiontd{
+  width:16px;
+  word-wrap:break-word;
+}
+
+.inPlaylist{
+  background-color:#e0d5ca;
+}
+
+#main_tab{
+  position:relative;
+  width:300px;
+  height:420px;
+  background-image:url('images/border.png');
+  background-repeat:repeat-y;
+}
+
+#current_position{
+  position:relative;
+  z-index:1000;
+  top:1px;
+}
+
+#lyrics_tab{
+  position:relative;
+  width:290px;
+  height:410px;
+  background-image:url('images/border.png');
+  padding:5px;
+}
+
+#playlist_tab{
+  position:relative;
+  width:290px;
+  height:410px;
+  background-image:url('images/border.png');
+  padding:5px;
+}
+
+#playlist{
+  position:relative;
+  top:10px;
+  overflow:auto;
+  height:400px;
+}
+
+#search_tab{
+  position:relative;
+  width:290px;
+  height:410px;
+  background-image:url('images/border.png');
+  padding:5px;
+  padding-top:5px;
+}
+
+#searchresults{
+  position:relative;
+  top:10px;
+  overflow:auto;
+  height:375px;
+}
+
+#settings_tab{
+  position:relative;
+  width:290px;
+  height:405px;
+  background-image:url('images/border.png');
+  padding:5px;
+  padding-top:10px;
+  overflow:hidden;
+}

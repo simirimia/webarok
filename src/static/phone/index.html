@@ -1,0 +1,191 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+	<title>Webarok</title>
+	<link rel="stylesheet" href="oldschool/default.css" type="text/css" />	
+	<link rel="stylesheet" href="phone/phone.css" type="text/css" />
+	<script type="text/javascript" src="js/prototype.js"></script>
+
+	<script type="text/javascript" src="js/prototype.js"></script>
+	<script type="text/javascript" src="js/livepipe.js"></script>
+	<script type="text/javascript" src="js/progressbar.js"></script>
+	<script type="text/javascript" src="js/tabs.js"></script>
+
+	<script type="text/javascript" src="phone/theme.js"></script>
+	<script type="text/javascript" src="js/webarok.js"></script>
+</head>
+
+<body>
+
+  <ul id="tab_group">
+	<li class="tab" style="position:relative;width:1px;">&nbsp;</li>
+	<li class="tab"><a class="active" id="tab_main" href="#main_tab"><span id="trans_main">Main</span></a></li>
+	<li class="tab"><a class=""       id="tab_playlist" href="#playlist_tab"><span id="trans_playlist">Playlist</span></a></li>
+	<li class="tab"><a class=""        id="tab_lyrics" href="#lyrics_tab"><span id="trans_lyrics">Lyrics</span></a></li>
+	<li class="tab"><a class=""        id="tab_search" href="#search_tab"><span id="trans_search">Search</span></a></li>
+	<li class="tab"><a class=""        href="#settings_tab"><span id="tab_settings">&nbsp;</span></a></li>
+  </ul>
+  
+	<div id="main_tab" style="">
+		<div id="progressbareventhandler">
+		<div id="progressbar">
+		<span id="current_position" style="">
+			<span id="position_min">0</span>:<span id="position_sec" class="value">00</span>
+		</span>
+		</div></div><br />
+		<div class="controls" id="controls">
+			<span style="position:relative;left:8px;">
+			<span id="control_previous" onClick="callWebarok( 'Previous', doAfterPlayerAction )"><img class="action" src="phone/images/player_start.png" alt="BACK" /></span>
+			<span id="control_pause" onClick="callWebarok( 'Pause', setTimeout(doAfterPlayerAction,100) )"><img class="action" src="phone/images/player_pause.png" alt="PAUSE" /></span>
+			<span id="control_play" onClick="callWebarok( 'Play', setTimeout(doAfterPlayerAction,100) )"><img class="action" src="phone/images/player_play.png" alt="PLAY" /></span>
+			<span id="control_unpause" onClick="callWebarok( 'Unpause', setTimeout(doAfterPlayerAction,100) )"><img class="action" src="phone/images/player_play.png" alt="PLAY/UNPAUSE" /></span>
+			<span id="control_stop" onClick="callWebarok( 'Stop', doAfterPlayerAction )"><img class="action" src="phone/images/player_stop.png" alt="STOP" /></span>
+			<span id="control_next" onClick="callWebarok( 'Next', doAfterPlayerAction )"><img class="action" src="phone/images/player_end.png" alt="NEXT" /></span>
+			</span>
+			<span style="position:absolute;left:100%;margin-left:-108px;">
+			<span onClick="callWebarok( 'VolumeDown', refreshVolume )"><img class="action" src="phone/images/down.png" alt="VOLUME DOWN" /></span>
+			<span id="volume" style="position:relative;top:-8px;">0</span> <span style="position:relative;top:-8px;">%</span>
+			<span onClick="callWebarok( 'VolumeUp', refreshVolume )"><img class="action" src="phone/images/up.png" alt="VOLUME UP" /></span>
+			</span>
+		<!--</div>-->
+		
+		<div style="display:none;"><span id="trans_status">Status</span>: <span id="status"><span id="trans_loading">Loading</span>...</span></div>
+		
+		<div id="current_song" onclick="javascript: refreshCurrentSong( 1 );refreshPlayerStatus();refreshVolume();" style="width:300px;text-align:center;">
+			<table align="center" style="">
+				<tr>
+					<td colspan="2" rowspan="5" >  
+						<img id="albumart" height="150px" width="150px" src="phone/images/nocover.png" onError="$('albumart').src = '/phone/images/nocover.png';"/>
+					</td>
+				</tr>
+			</table>
+			<br />
+			  <div style="height:150px;overflow:auto;width:300px;">
+			<table>
+				<tr>
+					<td class="description" valign="top"><span id="trans_track">Title</span>: </td><td id="title" class="value"><span id="trans_loading">Loading</span>...</td>
+				</tr>
+				<tr>
+					<td class="description" valign="top"><span id="trans_artist">Artist</span>: </td><td id="artist" class="value"><span id="trans_loading">Loading</span>...</td>
+				</tr>
+				<tr>
+					<td class="description" valign="top"><span id="trans_album">Album</span>: </td><td id="album" class="value"><span id="trans_loading">Loading</span>...</td>
+				</tr>
+				<tr>
+					<td class="description" valign="top"><span id="trans_duration">Duration</span>: </td><td><span class="value"><span id="duration_min">0</span>:<span id="duration_sec">00</span></span></td>
+				</tr>
+			</table>
+			</div>
+		</div>
+	</div>	
+	</div>
+	<div id="settings_tab" style="">
+	<div style="font-size:11pt;"><b><span id="trans_settings">Settings</span>:</b></div>
+	<div style="padding-left:10px;padding-top:5px;">
+		<input type="button" onClick="refreshVolume();refreshCurrentSong();refreshPlayerStatus();refreshPlaylist()" value="Refresh data" id="refresh_data_button" /><br />
+		<div><b><span id="trans_opt_autorefresh">Autorefresh options</span>:</b></div>
+		<div>
+			<input id="check_refresh_volume" type="checkbox" checked="checked" value="1" onChange="toggleRefreshVolume( this.checked )" /> <span id="trans_autorefresh_volume">Autorefresh volume every</span>
+			<input type="text" size="3" value="10" id="refresh_rate_volume" onKeyUp='if ( $("check_refresh_volume").checked ) startRefreshingVolume()' />s
+		</div> 
+		<div>
+			<input id="check_refresh_song" type="checkbox" checked="checked" value="1" onChange="toggleRefreshCurrentSong( this.checked )" /> <span id="trans_autorefresh_progress">Autorefresh progressbar every</span> 
+			<input type="text" size="3" value="10" id="refresh_rate_song" onKeyUp='if ( $("check_refresh_song").checked ) startRefreshingCurrentSong()' />s
+		</div>
+		<div>
+			<input id="check_refresh_playerstatus" type="checkbox" checked="checked" value="1" onChange="toggleRefreshPlayerStatus( this.checked )" /> <span id="trans_autorefresh_status">Autorefresh status every</span>
+			<input type="text" size="3" value="10" id="refresh_rate_playerstatus" onKeyUp='if ( $("check_refresh_playerstatus").checked ) startRefreshingPlayerStatus()'/>s
+		</div>
+		<div>
+			<input id="check_refresh_playlist" type="checkbox" checked="checked" value="1" onChange="toggleRefreshPlaylist( this.checked )" /> <span id="trans_autorefresh_playlist">Autorefresh playlist every</span>
+			<input type="text" size="3" value="300" id="refresh_rate_playlist" onKeyUp='if ( $("check_refresh_playlist").checked ) startRefreshingPlaylist()'/>s
+		</div>
+	</div>	<br /><br />
+	<div style="font-size:11pt;"><b><span id="trans_about">About</span>:</b></div>
+	<div style="padding-left:10px;padding-top:5px;">
+		<a href="http://sourceforge.net/projects/webarok/">(c) webarok project</a><br />Webarok is free software. (GPLv3)<br />
+		<b>Autors:</b><br />
+		<div style="padding-left:4px;">
+		<a href="http://simirimia.triosolutions.at/">simirimia</a> (main developer)<br />
+		<a href="http://orakeldel.net/">orakeldel</a> (MySql collection extendsion)<br />
+		khaytsus (Transparent theme)
+		</div>
+		<b>Thanks to:</b><br />
+		<div style="padding-left:4px;">
+		<a href="http://www.prototypejs.org">Prototype JS library</a>, 
+		<a href="http://livepipe.net">Livepipe JS widget</a>, 
+		<a href="http://script.aculo.us">Scriptaculous JS effects</a>, 
+		<a href="http://kde-look.org/content/show.php/DarkGlass_Reworked?content=67902">Dark Glass icon set</a>, 
+		<a href="http://ecosmear.com/relay">Relay(Progressbar)</a>, 
+		<a href="http://www.python.org">Python</a>, 
+		<a href="http://www.freedesktop.org/wiki/Software/DBusBindings#python">Python Dbus bindings</a>,  
+		<a href="http://mysql-python.sourceforge.net/">Python MySql bindings</a>, 
+		<a href="http://amarok.kde.org">Amarok</a>, and of course all the basic stuff (linux, kde &amp; co)
+		</div>
+	</div>	
+	</div>
+	<div id="lyrics_tab" style="" onclick="javascript: refreshCurrentSong( 1 );">
+	<div style="overflow:auto; margin-top:5px; height:400px;">
+	  <span id="lyrics"></span>
+	</div>
+	</div>
+	
+	
+	<div id="playlist_tab" style="" onclick="refreshPlaylist()">
+		<div id="playlist_spinner">
+			<img src="netbook/images/spinner_blue.gif" />
+		</div>
+		<div id="playlist" style="">
+			<span id="trans_the_playlist">The Playlist</span>....
+		</div>
+	</div>
+	
+	<div id="search_tab" style="">
+		<div id="searchbuttons">
+			<input type="text" id="searchterm" size="10" onkeydown="if(event.keyCode=='13') collectionSearchAll();" />
+			<select size="1" id="searchtags">
+			  <option value="Title" id="trans_tracks">Titles</option>
+			  <option value="Artist" id="trans_artists">Artists</option>
+			  <option value="All" id="trans_all">All</option>
+			</select>
+			<input type="button" onclick="collectionSearchAll()" value="Search" id="button_search" />
+		</div>
+		<div id="searchresults" style="">
+			<span id="trans_no_result">No Resuts</span>...<br /><br />
+			<span id="trans_search_with_mysql">Search only works with Amarok and enabled external MySQL server.</span>
+		</div>
+	</div>
+	
+  <div id="debug">&nbsp;</div>
+	
+	
+	<script type="text/javascript">
+		// init view
+		new Control.Tabs('tab_group');
+		var progress_bar = new Control.ProgressBar('progressbar',{  
+			   interval: 0.01
+			}); 
+
+		/*$$('.main_tab').each(function(tab_group){  
+		  new Control.Tabs(tab_group);  
+		});*/  
+		
+		// init data
+		refreshTranslation()
+		refreshPlayerStatus();
+		refreshCurrentSong();
+		refreshVolume();
+		refreshPlaylist();
+		
+		// enable automatic refresh
+		startRefreshingPlayerStatus();
+		startRefreshingCurrentSong();
+		startRefreshingPlaylist();
+		startRefreshingVolume();
+		
+		Event.observe('progressbareventhandler', 'click', seek);
+	</script>
+</body>
+
+</html>
